@@ -1,0 +1,25 @@
+﻿/*--------- Icons -----------*/
+
+
+.fa-minus-circle {
+    color: #d9534f;
+}
+
+.fa-check-circle,
+.fa-plus {
+    color: green;
+}
+
+.fa-user {
+    color: rgb(7, 139, 142)
+}
+
+/*--------- End Icons -----------*/
+
+.actions-bar {
+    border-bottom: 1px solid #f5f5f5;
+    border-top: 1px solid #f5f5f5;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}

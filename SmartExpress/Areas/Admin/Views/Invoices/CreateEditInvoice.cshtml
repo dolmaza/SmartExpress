@@ -1,0 +1,245 @@
+﻿@model CreateEditInvoiceViewModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+@section Breadcrumb {
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="@Model.InvoicesUrl">ზედნადებების ისტორია</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ol>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="actions-bar">
+            <a href="@Model.SaveUrl" class="btn btn-success" id="save"><i class="fa fa-floppy-o"></i> დამახსოვრება</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                ზოგადი ინფორმაცია
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ზედნ. №</label>
+                            <input type="text" class="form-control" id="InvoiceNumber" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>გზავნილის ტიპი</label>
+                            <select class="form-control" id="MessageType" value="">
+                                <option value=""></option>
+                            </select>
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>მიღების თარიღი</label>
+                            <input type="text" class="form-control" id="ReceiveDate" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ჩაბარების თარიღი</label>
+                            <input type="text" class="form-control" id="DeliveryDate" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ერთეულის ფასი</label>
+                            <input type="text" class="form-control" id="UnitPrice" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>საერთო ფასი</label>
+                            <input type="text" class="form-control" id="TotalPrice" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>მიმართულება</label>
+                            <input type="text" class="form-control" id="Direction" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>რეჟიმი</label>
+                            <select class="form-control" id="MessageMode" value="">
+                                <option value=""></option>
+                            </select>
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>გადამხდელი</label>
+                            <select class="form-control" id="Payer" value="">
+                                <option value=""></option>
+                            </select>
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>გადახდის ფორმა</label>
+                            <select class="form-control" id="FormOfPayment" value="">
+                                <option value=""></option>
+                            </select>
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                ინფორმაცია გამგზავნის შესახებ
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ხელშ. №</label>
+                            <select class="form-control" id="ContractNumber" value="">
+                                <option value=""></option>
+                            </select>
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>კომპანია</label>
+                            <input type="text" class="form-control" id="CompanyName" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>სახელი</label>
+                            <input type="text" class="form-control" id="SenderFirstname" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>გვარი</label>
+                            <input type="text" class="form-control" id="SenderLastname" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ტელეფონი</label>
+                            <input type="text" class="form-control" id="SenderTelephoneNumber" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>მისამართი</label>
+                            <input type="text" class="form-control" id="SenderAddress" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                ინფორმაცია მიმღების შესახებ
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>სახელი</label>
+                            <input type="text" class="form-control" id="ReceiverFirstname" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>გვარი</label>
+                            <input type="text" class="form-control" id="ReceiverLastname" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ტელეფონი</label>
+                            <input type="text" class="form-control" id="ReceiverTelephoneNumber" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>მისამართი</label>
+                            <input type="text" class="form-control" id="ReceiverAddress" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ვინ მიიღო</label>
+                            <input type="text" class="form-control" id="WhoReceived" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>დამატებითი</label>
+                            <textarea type="text" class="form-control" id="WhoReceivedAdditional" value=""></textarea>
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section FooterSection {
+    <script src="~/Content/plugins/jquery/masked-input.js"></script>
+    <script src="~/Content/plugins/jquery/jquery.numeric-input.js"></script>
+    <script src="~/Areas/Admin/Content/scripts/Invoices/CreateEditInvoice.js"></script>
+}

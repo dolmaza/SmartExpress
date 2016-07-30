@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @RenderSection("HeaderSection", false)
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+
+    @RenderSection("FooterSection", false)
+</body>
+</html>

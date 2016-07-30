@@ -1,0 +1,23 @@
+﻿@model DictionaryViewModel
+@{
+    ViewBag.Title = "ზოგადი ცნობარები";
+}
+
+
+@section Breadcrumb {
+    <div class="row">
+        <ol class="breadcrumb">
+            <li class="active">@ViewBag.Title</li>
+        </ol>
+    </div>
+
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="actions-bar">
+            <a href="@Model.DictionaryCreateUrl" class="btn btn-default"><i class="fa fa-plus"></i> დამატება</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+﻿@model CreateEditUserViewModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+@section Breadcrumb {
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="@Model.UsersUrl">მომხმარებლები</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ol>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="actions-bar">
+            <a href="@Model.SaveUrl" class="btn btn-success" id="save"><i class="fa fa-floppy-o"></i> დამახსოვრება</a>
+        </div>
+    </div>  
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                მომხმარებლის დამატების ფორმა
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ხელშ. №</label>
+                            <input type="text" class="form-control" id="ContractNumber" value=""/>
+                            <span class="error"></span>
+                        </div>      
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>საიდ. კოდი</label>
+                            <input type="text" class="form-control" id="IDNumber" value=""/>
+                            <span class="error"></span>
+                        </div>    
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>სახელი</label>
+                            <input type="text" class="form-control" id="Firstname" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>გვარი</label>
+                            <input type="text" class="form-control" id="Lastname" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>მისამართი</label>
+                            <input type="text" class="form-control" id="Address" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ტელეფონი</label>
+                            <input type="text" class="form-control" id="TelephoneNumber" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>კომპანია</label>
+                            <input type="text" class="form-control" id="CompanyName" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>როლი</label>
+                            <select class="form-control" id="Role">
+                                <option value=""></option>
+                            </select>
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section FooterSection {
+    
+    <script src="~/Content/plugins/jquery/masked-input.js"></script>
+    <script src="~/Areas/Admin/Content/scripts/Users/CreateEditUser.js"></script>
+}

@@ -1,0 +1,10 @@
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\bin\Debug\Core.dll.config
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\bin\Debug\Core.dll
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\bin\Debug\Core.pdb
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\bin\Debug\EntityFramework.dll
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\bin\Debug\EntityFramework.SqlServer.dll
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\bin\Debug\EntityFramework.xml
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\bin\Debug\EntityFramework.SqlServer.xml
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.dll
+c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.pdb
