@@ -52,17 +52,47 @@
     <Compile Include="Core\Dictionary.cs" />
     <Compile Include="Core\Invoice.cs" />
     <Compile Include="Core\User.cs" />
+    <Compile Include="DB\Configuration\DictionaryConfiguration.cs" />
+    <Compile Include="DB\Configuration\InvoiceConfiguration.cs" />
+    <Compile Include="DB\Configuration\UserConfiguration.cs" />
+    <Compile Include="DB\DbCoreDataContext.cs" />
+    <Compile Include="Migrations\201607311355089_InitialDatabase.cs" />
+    <Compile Include="Migrations\201607311355089_InitialDatabase.Designer.cs">
+      <DependentUpon>201607311355089_InitialDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607311639299_MakeIsVisibleColumnNullableInDictionaryTable.cs" />
+    <Compile Include="Migrations\201607311639299_MakeIsVisibleColumnNullableInDictionaryTable.Designer.cs">
+      <DependentUpon>201607311639299_MakeIsVisibleColumnNullableInDictionaryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607311644150_MakeParentIDColumnNullableInDictionaryTable.cs" />
+    <Compile Include="Migrations\201607311644150_MakeParentIDColumnNullableInDictionaryTable.Designer.cs">
+      <DependentUpon>201607311644150_MakeParentIDColumnNullableInDictionaryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DictionaryRepository.cs" />
+    <Compile Include="Repositories\InvoiceRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DB\Configuration\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="UnitOfWork\" />
     <Folder Include="Validation\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201607311355089_InitialDatabase.resx">
+      <DependentUpon>201607311355089_InitialDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607311639299_MakeIsVisibleColumnNullableInDictionaryTable.resx">
+      <DependentUpon>201607311639299_MakeIsVisibleColumnNullableInDictionaryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607311644150_MakeParentIDColumnNullableInDictionaryTable.resx">
+      <DependentUpon>201607311644150_MakeParentIDColumnNullableInDictionaryTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

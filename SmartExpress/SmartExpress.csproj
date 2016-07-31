@@ -185,7 +185,7 @@
     <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
     <Compile Include="Areas\Admin\Models\DictionaryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LayoutViewModel.cs" />
-    <Compile Include="Areas\Admin\Reusable\BaseController.cs" />
+    <Compile Include="Areas\Admin\Reusable\BaseClasses.cs" />
     <Compile Include="Areas\Admin\Reusable\FilterAttributes\BeforePageLoads.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -194,6 +194,7 @@
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reusable\BaseClasses.cs" />
+    <Compile Include="Reusable\Utilities\SimpleKeyValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -237,7 +238,6 @@
     <Folder Include="Reusable\Extentions\" />
     <Folder Include="Reusable\FilterAttributes\" />
     <Folder Include="Reusable\Helpers\" />
-    <Folder Include="Reusable\Utilities\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

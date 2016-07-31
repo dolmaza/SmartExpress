@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Core
 {
@@ -15,7 +16,13 @@ namespace Core
         public int? RoleID { get; set; }
         public DateTime? CreateTime { get; set; }
 
-        public User Role { get; set; }
+        public Dictionary Role { get; set; }
+        public IList<Invoice> Invoices { get; set; }
+
+        public User()
+        {
+            Invoices = new List<Invoice>();
+        }
 
     }
 }

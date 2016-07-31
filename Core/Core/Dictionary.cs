@@ -12,9 +12,15 @@ namespace Core
         public int? IntCode { get; set; }
         public int? Level { get; set; }
         public string Hierarchy { get; set; }
-        public bool IsVisible { get; set; }
+        public int? DictionaryCode { get; set; }
+        public bool? IsVisible { get; set; }
         public int? SortVal { get; set; }
         public DateTime? CreateTime { get; set; }
+
+        public Dictionary Parent { get; set; }
+
+        public IList<Dictionary> Parents { get; set; }
+
 
         public IList<User> Roles { get; set; }
 
@@ -30,6 +36,7 @@ namespace Core
             Payers = new List<Invoice>();
             FormOfPayments = new List<Invoice>();
             Roles = new List<User>();
+            Parents = new List<Dictionary>();
         }
     }
 }

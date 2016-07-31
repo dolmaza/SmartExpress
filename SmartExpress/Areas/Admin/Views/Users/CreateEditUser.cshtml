@@ -33,14 +33,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>ხელშ. №</label>
-                            <input type="text" class="form-control" id="ContractNumber" value=""/>
+                            <input type="text" class="form-control" id="ContractNumber" value="@Model.UserObject.ContractNumber"/>
                             <span class="error"></span>
                         </div>      
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>საიდ. კოდი</label>
-                            <input type="text" class="form-control" id="IDNumber" value=""/>
+                            <input type="text" class="form-control" id="IDNumber" value="@Model.UserObject.IDNumber"/>
                             <span class="error"></span>
                         </div>    
                     </div>
@@ -49,14 +49,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>სახელი</label>
-                            <input type="text" class="form-control" id="Firstname" value="" />
+                            <input type="text" class="form-control" id="Firstname" value="@Model.UserObject.Firstname" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>გვარი</label>
-                            <input type="text" class="form-control" id="Lastname" value="" />
+                            <input type="text" class="form-control" id="Lastname" value="@Model.UserObject.Lastname" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -65,14 +65,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>მისამართი</label>
-                            <input type="text" class="form-control" id="Address" value="" />
+                            <input type="text" class="form-control" id="Address" value="@Model.UserObject.Address" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>ტელეფონი</label>
-                            <input type="text" class="form-control" id="TelephoneNumber" value="" />
+                            <input type="text" class="form-control" id="TelephoneNumber" value="@Model.UserObject.TelephoneNumber" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>კომპანია</label>
-                            <input type="text" class="form-control" id="CompanyName" value="" />
+                            <input type="text" class="form-control" id="CompanyName" value="@Model.UserObject.CompanyName" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -90,6 +90,10 @@
                             <label>როლი</label>
                             <select class="form-control" id="Role">
                                 <option value=""></option>
+                                @foreach (var role in Model.Roles)
+                                {
+                                    <option @(role.Key == Model.UserObject.RoleID ? Html.Raw("selected='selected'") : null) value="@role.Key">@role.Value</option>
+                                }
                             </select>
                             <span class="error"></span>
                         </div>

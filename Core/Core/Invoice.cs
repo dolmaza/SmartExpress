@@ -16,7 +16,7 @@ namespace Core
         public int? PayerID { get; set; }
         public int? FormOfPaymentID { get; set; }
 
-        public int? ContractNumberID { get; set; }
+        public int? UserID { get; set; }
         public string CompanyName { get; set; }
         public string SenderFirstname { get; set; }
         public string SenderLastname { get; set; }
@@ -29,6 +29,7 @@ namespace Core
         public string ReceiverAddress { get; set; }
         public string WhoReceived { get; set; }
         public string WhoReceivedAdditional { get; set; }
+        public DateTime? CreateTime { get; set; }
 
         public User User { get; set; }
         public Dictionary MessageType { get; set; }
