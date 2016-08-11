@@ -1,8 +1,13 @@
 ﻿/*--------- Icons -----------*/
 
 
-.fa-minus-circle {
+.fa-minus-circle,
+.fa-trash-o {
     color: #d9534f;
+}
+
+.fa-pencil {
+    color: rgb(239, 239, 15);
 }
 
 .fa-check-circle,
@@ -22,4 +27,8 @@
     padding-bottom: 10px;
     padding-top: 10px;
     margin-bottom: 10px;
+}
+
+.checkbox-form-group {
+    margin-top: 25px;
 }

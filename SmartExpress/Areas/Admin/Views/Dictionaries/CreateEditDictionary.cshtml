@@ -1,0 +1,63 @@
+﻿@model CreateEditDictionaryViewModel 
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Areas/Admin/Views/Shared/_PopupLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label>Caption</label>
+            <input type="text" class="form-control" id="Caption" value="@Model.DictionaryObject.Caption"/>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label>Dictionary Code</label>
+            <input type="text" class="form-control Apply-Numeric" id="DictionaryCode" value="@Model.DictionaryObject.DictionaryCode"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label>String Code</label>
+            <input type="text" class="form-control" id="StringCode" value="@Model.DictionaryObject.StringCode"/>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label>Int Code</label>
+            <input type="text" class="form-control Apply-Numeric" id="IntCode" value="@Model.DictionaryObject.IntCode"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label>Sort Val</label>
+            <input type="text" class="form-control Apply-Numeric" id="SortVal" value="@Model.DictionaryObject.SortVal"/>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group checkbox-form-group">
+            <span class="button-checkbox">
+                <button type="button" class="btn btn-default" data-color="primary">Is Visible</button>
+                <input type="checkbox" @(Model.DictionaryObject.IsVisible.Value ? Html.Raw("checked='checked'") : null) name="IsVisible" value="true" class="hidden" />
+            </span>
+        </div>
+    </div>
+</div>
+
+@section ModalFooterSection{
+    <a href="@Model.SaveUrl" class="btn btn-success" id="Save"><i class="fa fa-floppy-o"></i> დამახსოვრება</a>
+}
+@section FooterSection {
+    <script>
+        var parentID = @Model.DictionaryObject.ParentID;
+    </script>
+    <script src="~/Content/plugins/jquery/jquery.numeric-input.js"></script>
+    <script src="~/Content/plugins/checkbox/checkbox-script.js"></script>
+    <script src="~/Areas/Admin/Content/scripts/Dictionaries/CreateEditDictionary.js"></script>
+}

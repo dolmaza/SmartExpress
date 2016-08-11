@@ -3,6 +3,12 @@
     ViewBag.Title = "ზოგადი ცნობარები";
 }
 
+@section HeaderSection {
+
+    <link href="~/Content/plugins/jqxTreeGrid/jqx.base.css" rel="stylesheet" />
+    <link href="~/Content/plugins/fancybox/jquery.fancybox.css" rel="stylesheet" />
+
+}
 
 @section Breadcrumb {
     <div class="row">
@@ -17,7 +23,42 @@
 <div class="row">
     <div class="col-md-12">
         <div class="actions-bar">
-            <a href="@Model.DictionaryCreateUrl" class="btn btn-default"><i class="fa fa-plus"></i> დამატება</a>
+            <a href="@Model.DictionaryCreateUrl" class="btn btn-default create-new"><i class="fa fa-plus"></i> დამატება</a>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            ზოგადი ცნობარები
+        </div>
+        <div class="panel-body">
+            <div id="treeGrid">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section FooterSection {
+
+    <script src="~/Content/plugins/jqxTreeGrid/jqxcore.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxdata.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxbuttons.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxscrollbar.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxlistbox.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxdropdownlist.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxdatatable.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxtooltip.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxinput.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxtreegrid.js"></script>
+    <script src="~/Content/plugins/fancybox/jquery.fancybox.js"></script>
+    <script src="~/Content/plugins/fancybox/FancyMethods.js"></script>
+    <script>
+        var dictionaries = @Html.Raw(Model.DictionariesJson);
+    </script>
+    <script src="~/Areas/Admin/Content/scripts/Dictionaries/Index.js"></script>
+}

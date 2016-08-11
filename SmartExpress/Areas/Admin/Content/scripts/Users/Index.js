@@ -2,7 +2,7 @@
     $('#users-grid').DataTable({});
 
     $(".user-delete").click(function () {
-        if (confirm("Do you really want to delete?")) {
+        if (confirm(ConfirmDeleteText)) {
             return true;
         }
         return false;

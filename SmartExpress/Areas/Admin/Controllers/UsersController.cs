@@ -1,7 +1,10 @@
 ﻿using Core;
+using Core.Properties;
+using Core.Utilities;
 using SmartExpress.Admin.Models;
 using SmartExpress.Admin.Reusable;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -16,7 +19,7 @@ namespace SmartExpress.Areas.Admin.Controllers
             var model = new UserViewModel
             {
                 UserCreateUrl = Url.RouteUrl("UsersCreate"),
-                Users = UnitOfWork.UserRepository.GetAll().Select(u => new UserObject
+                Users = UnitOfWork.UserRepository.GetAll().Include(r => r.Role).ToList().Select(u => new UserObject
                 {
                     IDNumber = u.IDNumber,
                     Address = u.Address,
@@ -25,7 +28,10 @@ namespace SmartExpress.Areas.Admin.Controllers
                     Firstname = u.Firstname,
                     Lastname = u.Lastname,
                     TelephoneNumber = u.TelephoneNumber,
-                    RoleID = u.RoleID
+                    RoleID = u.RoleID,
+                    RoleCaption = u.Role.Caption,
+                    UserEditUrl = Url.RouteUrl("UsersEdit", new { ID = u.ID }),
+                    UserDeleteUrl = Url.RouteUrl("UsersDelete", new { ID = u.ID })
                 }).ToList()
             };
 
@@ -35,6 +41,8 @@ namespace SmartExpress.Areas.Admin.Controllers
         [Route("users/create", Name = "UsersCreate")]
         public ActionResult CreateUser()
         {
+            GenerateSuccessErrorMessageContainer();
+
             var model = new CreateEditUserViewModel
             {
                 SaveUrl = Url.RouteUrl("UsersCreate"),
@@ -50,9 +58,11 @@ namespace SmartExpress.Areas.Admin.Controllers
         [Route("users/create")]
         public ActionResult CreateUser(UserObject model)
         {
-            UnitOfWork.UserRepository.Add(new User
+            var AR = new AjaxResponse();
+            var user = new User
             {
                 IDNumber = model.IDNumber,
+                Password = model.Password,
                 Address = model.Address,
                 CompanyName = model.CompanyName,
                 ContractNumber = model.ContractNumber,
@@ -61,20 +71,38 @@ namespace SmartExpress.Areas.Admin.Controllers
                 Lastname = model.Lastname,
                 TelephoneNumber = model.TelephoneNumber,
                 RoleID = model.RoleID
-            });
+            };
 
-            UnitOfWork.Complate();
-            UnitOfWork.Dispose();
-            return Redirect(Url.RouteUrl("UsersCreate"));
+            UnitOfWork.UserRepository.Add(user);
+
+            if (UnitOfWork.UserRepository.IsError)
+            {
+                AR.Data = new
+                {
+                    Message = Resources.Abort
+                };
+            }
+            else
+            {
+                AR.IsSuccess = true;
+                AR.Data = new
+                {
+                    Message = Resources.Success,
+                    RedirectUrl = Url.RouteUrl("UsersEdit", new { ID = user.ID })
+                };
+            }
+
+            return Json(AR);
         }
 
         [Route("users/{ID}/edit", Name = "UsersEdit")]
         public ActionResult EditUser(int? ID)
         {
+            GenerateSuccessErrorMessageContainer();
             var user = UnitOfWork.UserRepository.Get(ID);
             if (user == null)
             {
-                return null;
+                return NotFound();
             }
             else
             {
@@ -94,6 +122,7 @@ namespace SmartExpress.Areas.Admin.Controllers
                 {
                     UserObject = userObject,
                     Title = "მომხმარებლის რედაქტირება",
+                    UsersUrl = Url.RouteUrl("Users"),
                     SaveUrl = Url.RouteUrl("UsersEdit", new { ID = user.ID })
                 });
             }
@@ -103,11 +132,12 @@ namespace SmartExpress.Areas.Admin.Controllers
         [Route("users/{ID}/edit")]
         public ActionResult EditUser(UserObject model)
         {
-
+            var AR = new AjaxResponse();
             UnitOfWork.UserRepository.Update(new User
             {
                 ID = model.ID,
                 IDNumber = model.IDNumber,
+                Password = model.Password,
                 Address = model.Address,
                 CompanyName = model.CompanyName,
                 ContractNumber = model.ContractNumber,
@@ -118,20 +148,38 @@ namespace SmartExpress.Areas.Admin.Controllers
                 RoleID = model.RoleID
             });
 
-            UnitOfWork.Complate();
-            UnitOfWork.Dispose();
+            if (UnitOfWork.UserRepository.IsError)
+            {
+                AR.Data = new
+                {
+                    Message = Resources.Abort
+                };
+            }
+            else
+            {
+                AR.IsSuccess = true;
+                AR.Data = new
+                {
+                    Message = Resources.Success
+                };
+            }
 
-            return Redirect(Url.RouteUrl("UsersEdit", new { ID = model.ID }));
+            return Json(AR);
         }
 
-        [HttpPost]
         [Route("users/{ID}/delete", Name = "UsersDelete")]
         public ActionResult DeleteUser(int? ID)
         {
-            UnitOfWork.UserRepository.Remove(new User { ID = ID });
-            UnitOfWork.Complate();
-            UnitOfWork.Dispose();
-
+            var user = UnitOfWork.UserRepository.Get(ID);
+            UnitOfWork.UserRepository.Remove(user);
+            if (UnitOfWork.UserRepository.IsError)
+            {
+                InitErrorMessage(Resources.Abort);
+            }
+            else
+            {
+                InitSuccessMessage(Resources.Success);
+            }
             return Redirect(Url.RouteUrl("Users"));
         }
     }

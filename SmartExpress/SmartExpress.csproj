@@ -98,9 +98,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\style.css" />
+    <Content Include="Areas\Admin\Content\scripts\Dictionaries\CreateEditDictionary.js" />
+    <Content Include="Areas\Admin\Content\scripts\Dictionaries\Index.js" />
     <Content Include="Areas\Admin\Content\scripts\Invoices\CreateEditInvoice.js" />
     <Content Include="Areas\Admin\Content\scripts\Users\CreateEditUser.js" />
     <Content Include="Areas\Admin\Content\scripts\Users\Index.js" />
+    <Content Include="Content\plugins\checkbox\checkbox-script.js" />
+    <Content Include="Content\plugins\fancybox\FancyMethods.js" />
     <Content Include="Content\plugins\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\plugins\bootstrap\bootstrap.min.css" />
     <Content Include="Content\plugins\bootstrap\bootstrap.min.js" />
@@ -171,6 +175,7 @@
     <Content Include="Content\plugins\metisMenu\metisMenu.min.js" />
     <Content Include="Content\plugins\sb-admin\sb-admin-2.css" />
     <Content Include="Content\plugins\sb-admin\sb-admin-2.js" />
+    <Content Include="Content\plugins\successErrorMessage.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -186,6 +191,7 @@
     <Compile Include="Areas\Admin\Models\DictionaryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LayoutViewModel.cs" />
     <Compile Include="Areas\Admin\Reusable\BaseClasses.cs" />
+    <Compile Include="Areas\Admin\Reusable\Extentions.cs" />
     <Compile Include="Areas\Admin\Reusable\FilterAttributes\BeforePageLoads.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -224,6 +230,10 @@
     <Content Include="Content\plugins\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Areas\Admin\Views\Users\CreateEditUser.cshtml" />
     <Content Include="Areas\Admin\Views\Invoices\CreateEditInvoice.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\NotFound.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SuccessErrorMessagePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_PopupLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Dictionaries\CreateEditDictionary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

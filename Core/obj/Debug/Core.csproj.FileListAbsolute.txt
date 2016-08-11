@@ -12,3 +12,7 @@ C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debu
 C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.csproj.GenerateResource.Cache
 C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.MakeIsVisibleColumnNullableInDictionaryTable.resources
 C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.MakeParentIDColumnNullableInDictionaryTable.resources
+C:\Users\Giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.ChangedContractNumberMaxLengthTo20InUsersTable.resources
+C:\Users\Giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.ChangedTelephoneNumberMaxLengthTo20InUsersTable.resources
+C:\Users\Giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Properties.Resources.resources
+C:\Users\Giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.AddPasswordColumnInUsersTable.resources

@@ -1,9 +1,11 @@
-﻿namespace SmartExpress.Admin.Models
+﻿using Core.Properties;
+
+namespace SmartExpress.Admin.Models
 {
     public class InvoiceViewModel
     {
         public string InvoiceCreateUrl { get; set; }
-        public string ConfirmDeleteText { get; set; }
+        public string ConfirmDeleteText { get; set; } = Resources.TextConfirmDelete;
 
     }
 

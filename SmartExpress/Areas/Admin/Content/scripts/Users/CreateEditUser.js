@@ -28,11 +28,27 @@
                 RoleID: roleID
             },
             dataType: "json",
-            success: function(response) {
+            beforeSend: function() {
+                //$("input, select").val("");
+            },
+            success: function (response) {
                 if (response.IsSuccess) {
-                    alert("success");
+                    var redirectUrl = response.Data.RedirectUrl;
+                    console.log(redirectUrl);
+                    if (redirectUrl == null) {
+                        successErrorMessage.Init({
+                            Message: response.Data.Message,
+                            IsSuccess: true
+                        }).ShowMessage();
+
+                    } else {
+                        window.location = redirectUrl;
+                    }
                 } else {
-                    alert("error");
+                    successErrorMessage.Init({
+                        Message: response.Data.Message,
+                        IsError: true
+                    }).ShowMessage();
                 }
             }
         });

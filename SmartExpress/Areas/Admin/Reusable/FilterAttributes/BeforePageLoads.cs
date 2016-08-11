@@ -1,4 +1,5 @@
-﻿using SmartExpress.Admin.Models;
+﻿using Core.Utilities;
+using SmartExpress.Admin.Models;
 using System.Web.Mvc;
 
 namespace SmartExpress.Admin.Reusable.FilterAttributes
@@ -11,6 +12,7 @@ namespace SmartExpress.Admin.Reusable.FilterAttributes
             var controller = (BaseController)filterContext.Controller;
 
             InitMenu(ref model, controller);
+            GetSuccessErrorMessage(filterContext, ref model);
 
             controller.ViewBag.LayoutViewModel = model;
         }
@@ -27,6 +29,27 @@ namespace SmartExpress.Admin.Reusable.FilterAttributes
             model.UsersUrl = controller.Url.RouteUrl("Users");
             model.DictionariesUrl = controller.Url.RouteUrl("Dictionaries");
             model.InvoicesUrl = controller.Url.RouteUrl("Invoices");
+        }
+
+        private void GetSuccessErrorMessage(ActionExecutingContext filterContext, ref LayoutViewModel model)
+        {
+            if (filterContext.HttpContext.Session[AppSettings.ErrorMessageKey] != null)
+            {
+                model.SuccessErrorMessageInfo = new SuccessErrorMessageInfo
+                {
+                    Message = filterContext.HttpContext.Session[AppSettings.ErrorMessageKey].ToString()
+                };
+                filterContext.HttpContext.Session[AppSettings.ErrorMessageKey] = null;
+            }
+            else if (filterContext.HttpContext.Session[AppSettings.SuccessMessageKey] != null)
+            {
+                model.SuccessErrorMessageInfo = new SuccessErrorMessageInfo
+                {
+                    IsSuccess = true,
+                    Message = filterContext.HttpContext.Session[AppSettings.SuccessMessageKey].ToString()
+                };
+                filterContext.HttpContext.Session[AppSettings.SuccessMessageKey] = null;
+            }
         }
     }
 }

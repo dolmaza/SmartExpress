@@ -39,8 +39,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>საიდ. კოდი</label>
-                            <input type="text" class="form-control" id="IDNumber" value="@Model.UserObject.IDNumber"/>
+                            <label>პაროლი</label>
+                            <input type="password" class="form-control" id="Password" value=""/>
                             <span class="error"></span>
                         </div>    
                     </div>
@@ -81,7 +81,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>კომპანია</label>
-                            <input type="text" class="form-control" id="CompanyName" value="@Model.UserObject.CompanyName" />
+                            <input type="text" class="form-control" id="CompanyName" value="@Model.UserObject.CompanyName"/>
                             <span class="error"></span>
                         </div>
                     </div>
@@ -99,6 +99,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>საიდ. კოდი</label>
+                            <input type="text" class="form-control" id="IDNumber" value="@Model.UserObject.IDNumber" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -107,5 +116,6 @@
 @section FooterSection {
     
     <script src="~/Content/plugins/jquery/masked-input.js"></script>
+    <script src="~/Content/plugins/successErrorMessage.js"></script>
     <script src="~/Areas/Admin/Content/scripts/Users/CreateEditUser.js"></script>
 }

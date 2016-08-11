@@ -1,4 +1,6 @@
-﻿namespace SmartExpress.Admin.Models
+﻿using Core.Utilities;
+
+namespace SmartExpress.Admin.Models
 {
     public class LayoutViewModel
     {
@@ -9,6 +11,8 @@
         public string DictionariesUrl { get; set; }
         public string UsersUrl { get; set; }
         public string InvoicesUrl { get; set; }
+
+        public SuccessErrorMessageInfo SuccessErrorMessageInfo { get; set; }
 
     }
 }

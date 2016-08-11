@@ -18,9 +18,13 @@ namespace Core.DB.Configuration
             Property(u => u.CompanyName)
                 .HasMaxLength(500);
 
+            Property(u => u.Password)
+                .HasMaxLength(500)
+                .IsRequired();
+
             Property(u => u.ContractNumber)
                 .IsRequired()
-                .HasMaxLength(10)
+                .HasMaxLength(20)
                 .HasColumnAnnotation(
                     "Index",
                     new IndexAnnotation(
@@ -36,7 +40,7 @@ namespace Core.DB.Configuration
                 .HasMaxLength(500);
 
             Property(u => u.TelephoneNumber)
-                .HasMaxLength(10);
+                .HasMaxLength(20);
 
             Property(u => u.IDNumber)
                 .HasMaxLength(20);

@@ -6,7 +6,7 @@ namespace Core.Repositories
 {
     public interface IDictionaryRepository : IRepositoy<Dictionary>
     {
-        List<Dictionary> GetAll(int? level = null, int? dictionaryCode = null, bool? isVisible = null);
+        List<Dictionary> GetAllByCodeAndLevel(int? level = null, int? dictionaryCode = null, bool? isVisible = null);
     }
 
     public class DictionaryRepository : Repository<Dictionary>, IDictionaryRepository
@@ -16,7 +16,7 @@ namespace Core.Repositories
         {
         }
 
-        public List<Dictionary> GetAll(int? level = null, int? dictionaryCode = null, bool? isVisible = null)
+        public List<Dictionary> GetAllByCodeAndLevel(int? level, int? dictionaryCode, bool? isVisible)
         {
             return Find(d => d.Level == level && d.DictionaryCode == dictionaryCode && d.IsVisible == isVisible).ToList();
         }
