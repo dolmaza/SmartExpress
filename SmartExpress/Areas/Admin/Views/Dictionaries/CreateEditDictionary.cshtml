@@ -44,7 +44,7 @@
         <div class="form-group checkbox-form-group">
             <span class="button-checkbox">
                 <button type="button" class="btn btn-default" data-color="primary">Is Visible</button>
-                <input type="checkbox" @(Model.DictionaryObject.IsVisible.Value ? Html.Raw("checked='checked'") : null) name="IsVisible" value="true" class="hidden" />
+                <input type="checkbox" @(Model.DictionaryObject.IsVisible ? Html.Raw("checked='checked'") : null) id="IsVisible" class="hidden" />
             </span>
         </div>
     </div>

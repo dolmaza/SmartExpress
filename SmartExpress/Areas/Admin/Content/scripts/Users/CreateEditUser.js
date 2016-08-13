@@ -10,6 +10,7 @@
         var firstname = $("#Firstname").val();
         var lastname = $("#Lastname").val();
         var address = $("#Address").val();
+        var password = $("#Password").val();
         var telephoneNumber = $("#TelephoneNumber").val();
         var companyName = $("#CompanyName").val();
         var roleID = $("#Role").val();
@@ -23,6 +24,7 @@
                 Firstname: firstname,
                 Lastname: lastname,
                 Address: address,
+                Password: password,
                 TelephoneNumber: telephoneNumber,
                 CompanyName: companyName,
                 RoleID: roleID

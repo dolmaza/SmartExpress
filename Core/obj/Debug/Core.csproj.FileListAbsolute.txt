@@ -16,3 +16,8 @@ C:\Users\Giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debu
 C:\Users\Giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.ChangedTelephoneNumberMaxLengthTo20InUsersTable.resources
 C:\Users\Giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Properties.Resources.resources
 C:\Users\Giorgi\documents\visual studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.AddPasswordColumnInUsersTable.resources
+C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.AllowedNullsForPasswordInUsersTable.resources
+C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.AddQuantityColumnInInvoiceTable.resources
+C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.AddWeigthColumnInInvoiceTable.resources
+C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.AddParentIDColumnInInvoiceTable.resources
+C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.EditedRelationtipsInInvoiceTable.resources

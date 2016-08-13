@@ -10,6 +10,7 @@
         var sortVal = $("#SortVal").val();
         var isVisible = $("#IsVisible").is(":checked");
 
+
         $.ajax({
             type: "POST",
             url: url,
@@ -25,9 +26,9 @@
             dataType: "json",
             success: function(response) {
                 if (response.IsSuccess) {
-                    alert("success");
+                    window.parent.location.reload();
                 } else {
-                    alert("error");
+                    alert(response.Data.Message);
                 }
             }
         });

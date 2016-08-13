@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $("#UnitPrice, #TotalPrice").numericInput({
+    $(".Apply-Numeric").numericInput({
         allowFloat: true
     });
 
@@ -18,6 +18,8 @@
         var messageMode = $("#MessageMode").val();
         var payer = $("#Payer").val();
         var formOfPayment = $("#FormOfPayment").val();
+        var quantity = $("#Quantity").val();
+        var weigth = $("#Weigth").val();
 
         var contractNumber = $("#ContractNumber").val();
         var companyName = $("#CompanyName").val();
@@ -37,6 +39,7 @@
             type: "POST",
             url: url,
             data: {
+                ParentID: parentID == 0 ? null : parentID,
                 InvoiceNumber: invoiceNumber,
                 MessageType: messageType,
                 ReceiveDate: receiveDate,
@@ -47,6 +50,8 @@
                 MessageMode: messageMode,
                 Payer: payer,
                 FormOfPayment: formOfPayment,
+                Quantity: quantity,
+                Weigth:weigth,
 
                 ContractNumber: contractNumber,
                 CompanyName: companyName,

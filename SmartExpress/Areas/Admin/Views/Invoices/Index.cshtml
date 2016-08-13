@@ -3,6 +3,14 @@
     ViewBag.Title = "ზედნადებების ისტორია";
 }
 
+@section HeaderSection {
+
+    <link href="~/Content/plugins/jqxTreeGrid/jqx.base.css" rel="stylesheet" />
+    <link href="~/Content/plugins/fancybox/jquery.fancybox.css" rel="stylesheet" />
+    <link href="~/Content/plugins/jquery-ui-1.12.0/jquery-ui.min.css" rel="stylesheet" />
+}
+
+
 @section Breadcrumb {
     <div class="row">
         <div class="col-md-12">
@@ -17,7 +25,66 @@
 <div class="row">
     <div class="col-md-12">
         <div class="actions-bar">
-            <a href="@Model.InvoiceCreateUrl" class="btn btn-default"><i class="fa fa-plus"></i> დამატება</a>
+            <div class="row">
+                <div class="col-md-4 ab-btn">
+                    <a href="@Model.InvoiceCreateUrl" class="btn btn-default"><i class="fa fa-plus"></i> დამატება</a>
+                    <a href="#" class="btn btn-success"><i class="fa fa-download"></i> Excel</a>
+                    <label class="btn btn-success btn-file">
+                        <i class="fa fa-upload"></i> Excel <input type="file" style="display: none;">
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                        <input type="text" class="form-control calendar" id="From" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-calendar"></i></span>
+                        <input type="text" class="form-control calendar" id="To" aria-describedby="basic-addon2">
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            ზედნადებები
+        </div>
+        <div class="panel-body">
+            <div id="treeGrid">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section FooterSection {
+
+    <script src="~/Content/plugins/jqxTreeGrid/jqxcore.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxdata.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxbuttons.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxscrollbar.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxlistbox.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxdropdownlist.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxdatatable.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxtooltip.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxinput.js"></script>
+    <script src="~/Content/plugins/jqxTreeGrid/jqxtreegrid.js"></script>
+    <script src="~/Content/plugins/fancybox/jquery.fancybox.js"></script>
+    <script src="~/Content/plugins/fancybox/FancyMethods.js"></script>
+    <script src="~/Content/plugins/jquery-ui-1.12.0/jquery-ui.min.js"></script>
+    <script>
+        var InvoicesJson = @Html.Raw(Model.InvoicesJson);
+        var confirmDeleteText = "@Model.ConfirmDeleteText";
+
+    </script>
+    <script src="~/Areas/Admin/Content/scripts/Invoices/Index.js"></script>
+}

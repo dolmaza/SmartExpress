@@ -18,6 +18,12 @@ namespace Core.DB.Configuration
             Property(i => i.Direction)
                 .HasMaxLength(500);
 
+            Property(i => i.Quantity)
+                .HasColumnType("money");
+
+            Property(i => i.Weigth)
+                .HasColumnType("money");
+
             Property(i => i.SenderAddress)
                 .HasMaxLength(500);
 
@@ -59,27 +65,33 @@ namespace Core.DB.Configuration
                             IsUnique = true
                         }));
 
-            HasRequired(i => i.User)
+            HasOptional(i => i.Parent)
+                .WithMany(i => i.Parents)
+                .HasForeignKey(i => i.ParentID)
+                .WillCascadeOnDelete(false);
+
+
+            HasOptional(i => i.User)
                 .WithMany(u => u.Invoices)
                 .HasForeignKey(i => i.UserID)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(i => i.FormOfPayment)
+            HasOptional(i => i.FormOfPayment)
                 .WithMany(d => d.FormOfPayments)
                 .HasForeignKey(i => i.FormOfPaymentID)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(i => i.MessageModel)
+            HasOptional(i => i.MessageMode)
                 .WithMany(d => d.MessageModes)
                 .HasForeignKey(i => i.MessageModeID)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(i => i.MessageType)
+            HasOptional(i => i.MessageType)
                 .WithMany(d => d.MessageTypes)
                 .HasForeignKey(i => i.MessageTypeID)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(i => i.Payer)
+            HasOptional(i => i.Payer)
                 .WithMany(d => d.Payers)
                 .HasForeignKey(i => i.PayerID)
                 .WillCascadeOnDelete(false);

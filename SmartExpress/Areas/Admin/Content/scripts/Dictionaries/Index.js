@@ -32,7 +32,7 @@
         width: "100%",
         source: dataAdapter,
         sortable: true,
-        pageable: true,
+        pageable: false,
         pagerMode: 'advanced',
         ready: function () {
             $("#treeGrid").jqxTreeGrid('expandRow', '2');
@@ -42,7 +42,7 @@
             { text: "Caption", dataField: "Caption" },
             { text: "String Code", dataField: 'StringCode', width: 150 },
             { text: "Int Code", dataField: 'IntCode', width: 65 },
-            { text: "Dictionary Code", dataField: "DictionaryCode", width: 115 },
+            { text: "Dict. Code", dataField: "DictionaryCode", width: 80 },
             //{ text: 'Is Visible', dataField: 'IsVisible' },
             {
                 text: "Is Visible", width: 100, cellsAlign: 'center', align: "center", columnType: "none", editable: false, sortable: false, dataField: "IsVisible", cellsRenderer: function (row, column, value) {
@@ -57,7 +57,7 @@
             {
                 text: "<i class='fa fa-cog'></i>", width: 90, cellsAlign: 'center', align: "center", columnType: 'none', editable: false, sortable: false, dataField: "ParentID", cellsRenderer: function (id, column, parentID) {
                     // render custom column.
-                    return "<a href='/admin/dictionaries/" + id + "/edit/' data-row='" + id + "' class='dictionary-edit'><i class='fa fa-pencil'></i></a> <a href='#'><i class='fa fa-plus' data-parent='" + parentID + "'></i></a> <a href='/admin/dictionaries/" + id + "/delete' data-row='" + id + "' class='dictionary-delete'><i class='fa fa-trash-o'></i></a>";
+                    return "<a href='/admin/dictionaries/" + id + "/edit/' class='dictionary-edit'><i class='fa fa-pencil'></i></a> <a href='/admin/dictionaries/" + id + "/create' class='dictionary-create'><i class='fa fa-plus'></i></a> <a href='/admin/dictionaries/" + id + "/delete' class='dictionary-delete'><i class='fa fa-trash-o'></i></a>";
                 }
             }
 
@@ -66,7 +66,7 @@
     });
 
     $("#treeGrid").on("click", ".dictionary-delete", function () {
-        return confirm("Do you really want to delete?");
+        return confirm(confirmDeleteText);
     });
 
 
@@ -80,6 +80,26 @@
             height: 400
         }).ShowPopup();
 
+        return false;
+    });
+
+    $("#treeGrid").on("click", ".dictionary-edit", function() {
+        var url = $(this).attr("href");
+        FancyBox.Init({
+            href: url,
+            width: 900,
+            height: 400
+        }).ShowPopup();
+        return false;
+    });
+
+    $("#treeGrid").on("click", ".dictionary-create", function () {
+        var url = $(this).attr("href");
+        FancyBox.Init({
+            href: url,
+            width: 900,
+            height: 400
+        }).ShowPopup();
         return false;
     });
 

@@ -59,6 +59,7 @@
     <script src="~/Content/plugins/fancybox/FancyMethods.js"></script>
     <script>
         var dictionaries = @Html.Raw(Model.DictionariesJson);
+        var confirmDeleteText = "@Model.ConfirmDeleteText";
     </script>
     <script src="~/Areas/Admin/Content/scripts/Dictionaries/Index.js"></script>
 }

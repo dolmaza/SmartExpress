@@ -67,14 +67,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>ერთეულის ფასი</label>
-                            <input type="text" class="form-control" id="UnitPrice" value="" />
+                            <input type="text" class="form-control Apply-Numeric" id="UnitPrice" value="" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>საერთო ფასი</label>
-                            <input type="text" class="form-control" id="TotalPrice" value="" />
+                            <input type="text" class="form-control Apply-Numeric" id="TotalPrice" value="" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -113,6 +113,22 @@
                             <select class="form-control" id="FormOfPayment" value="">
                                 <option value=""></option>
                             </select>
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>რაოდენობა</label>
+                            <input type="text" class="form-control Apply-Numeric" id="Quantity" value="" />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>წონა</label>
+                            <input type="text" class="form-control Apply-Numeric" id="Weigth" value="" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -241,5 +257,8 @@
 @section FooterSection {
     <script src="~/Content/plugins/jquery/masked-input.js"></script>
     <script src="~/Content/plugins/jquery/jquery.numeric-input.js"></script>
+    <script>
+        var parentID = @Model.InvoiceObject.ParentID;
+    </script>
     <script src="~/Areas/Admin/Content/scripts/Invoices/CreateEditInvoice.js"></script>
 }

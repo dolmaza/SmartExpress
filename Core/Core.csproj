@@ -81,6 +81,26 @@
     <Compile Include="Migrations\201608052004113_AddPasswordColumnInUsersTable.Designer.cs">
       <DependentUpon>201608052004113_AddPasswordColumnInUsersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608121739224_AllowedNullsForPasswordInUsersTable.cs" />
+    <Compile Include="Migrations\201608121739224_AllowedNullsForPasswordInUsersTable.Designer.cs">
+      <DependentUpon>201608121739224_AllowedNullsForPasswordInUsersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608130725419_AddQuantityColumnInInvoiceTable.cs" />
+    <Compile Include="Migrations\201608130725419_AddQuantityColumnInInvoiceTable.Designer.cs">
+      <DependentUpon>201608130725419_AddQuantityColumnInInvoiceTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608130750499_AddWeigthColumnInInvoiceTable.cs" />
+    <Compile Include="Migrations\201608130750499_AddWeigthColumnInInvoiceTable.Designer.cs">
+      <DependentUpon>201608130750499_AddWeigthColumnInInvoiceTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608130807478_AddParentIDColumnInInvoiceTable.cs" />
+    <Compile Include="Migrations\201608130807478_AddParentIDColumnInInvoiceTable.Designer.cs">
+      <DependentUpon>201608130807478_AddParentIDColumnInInvoiceTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608130903047_EditedRelationtipsInInvoiceTable.cs" />
+    <Compile Include="Migrations\201608130903047_EditedRelationtipsInInvoiceTable.Designer.cs">
+      <DependentUpon>201608130903047_EditedRelationtipsInInvoiceTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -121,6 +141,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608052004113_AddPasswordColumnInUsersTable.resx">
       <DependentUpon>201608052004113_AddPasswordColumnInUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608121739224_AllowedNullsForPasswordInUsersTable.resx">
+      <DependentUpon>201608121739224_AllowedNullsForPasswordInUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608130725419_AddQuantityColumnInInvoiceTable.resx">
+      <DependentUpon>201608130725419_AddQuantityColumnInInvoiceTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608130750499_AddWeigthColumnInInvoiceTable.resx">
+      <DependentUpon>201608130750499_AddWeigthColumnInInvoiceTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608130807478_AddParentIDColumnInInvoiceTable.resx">
+      <DependentUpon>201608130807478_AddParentIDColumnInInvoiceTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608130903047_EditedRelationtipsInInvoiceTable.resx">
+      <DependentUpon>201608130903047_EditedRelationtipsInInvoiceTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Core
 {
     public class Invoice
     {
         public int? ID { get; set; }
+        public int? ParentID { get; set; }
+
         public string InvoiceNumber { get; set; }
         public int? MessageTypeID { get; set; }
         public DateTime? ReceiveDate { get; set; }
@@ -15,6 +18,8 @@ namespace Core
         public int? MessageModeID { get; set; }
         public int? PayerID { get; set; }
         public int? FormOfPaymentID { get; set; }
+        public decimal? Quantity { get; set; }
+        public decimal? Weigth { get; set; }
 
         public int? UserID { get; set; }
         public string CompanyName { get; set; }
@@ -31,9 +36,13 @@ namespace Core
         public string WhoReceivedAdditional { get; set; }
         public DateTime? CreateTime { get; set; }
 
+        public Invoice Parent { get; set; }
+
+        public List<Invoice> Parents { get; set; }
+
         public User User { get; set; }
         public Dictionary MessageType { get; set; }
-        public Dictionary MessageModel { get; set; }
+        public Dictionary MessageMode { get; set; }
         public Dictionary Payer { get; set; }
         public Dictionary FormOfPayment { get; set; }
 

@@ -19,8 +19,7 @@ namespace Core.DB.Configuration
                 .HasMaxLength(500);
 
             Property(u => u.Password)
-                .HasMaxLength(500)
-                .IsRequired();
+                .HasMaxLength(500);
 
             Property(u => u.ContractNumber)
                 .IsRequired()

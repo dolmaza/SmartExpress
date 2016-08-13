@@ -19,7 +19,7 @@ namespace SmartExpress.Admin.Models
         public string StringCode { get; set; }
         public int? IntCode { get; set; }
         public int? DictionaryCode { get; set; }
-        public bool? IsVisible { get; set; }
+        public bool IsVisible { get; set; }
         public int? SortVal { get; set; }
     }
 
