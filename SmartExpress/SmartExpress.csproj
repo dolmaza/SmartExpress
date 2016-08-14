@@ -157,6 +157,7 @@
     <Content Include="Content\plugins\jquery\jquery-2.2.1.min.js" />
     <Content Include="Content\plugins\jquery\jquery.numeric-input.js" />
     <Content Include="Content\plugins\jquery\masked-input.js" />
+    <Content Include="Content\plugins\jqxTreeGrid\images\close.png" />
     <Content Include="Content\plugins\jqxTreeGrid\images\icon-cancel.png" />
     <Content Include="Content\plugins\jqxTreeGrid\images\icon-delete.png" />
     <Content Include="Content\plugins\jqxTreeGrid\images\icon-down.png" />
@@ -167,6 +168,7 @@
     <Content Include="Content\plugins\jqxTreeGrid\images\icon-up.png" />
     <Content Include="Content\plugins\jqxTreeGrid\images\loader.gif" />
     <Content Include="Content\plugins\jqxTreeGrid\images\plus.png" />
+    <Content Include="Content\plugins\jqxTreeGrid\images\search.png" />
     <Content Include="Content\plugins\jqxTreeGrid\images\sortascbutton.png" />
     <Content Include="Content\plugins\jqxTreeGrid\images\sortdescbutton.png" />
     <Content Include="Content\plugins\jqxTreeGrid\jqx.base.css" />

@@ -20,6 +20,7 @@ namespace SmartExpress.Areas.Admin.Controllers
             var model = new InvoiceViewModel
             {
                 InvoiceCreateUrl = Url.RouteUrl("InvoicesCreate"),
+                InvoicesByReceiveDateUrl = Url.RouteUrl("InvoicesByReceiveDate"),
 
                 InvoicesJson = UnitOfWork.InvoiceRepository.GetAll()
                 .Include(i => i.MessageMode)
@@ -43,6 +44,41 @@ namespace SmartExpress.Areas.Admin.Controllers
                 }).ToJson()
             };
             return View(model);
+        }
+
+        [HttpPost]
+        [Route("invoices/by-receive-date", Name = "InvoicesByReceiveDate")]
+        public ActionResult InvoicesByReseiveDate(DateTime? dateFrom, DateTime? dateTo)
+        {
+            var AR = new AjaxResponse();
+            var invoicesJson = UnitOfWork.InvoiceRepository.GetAll()
+                .Where(i => (dateFrom == null && dateTo == null) || (i.ReceiveDate >= dateFrom || i.ReceiveDate < dateTo))
+                .Include(i => i.MessageMode)
+                .ToList()
+                .Select(i => new InvoiceObject
+                {
+                    ID = i.ID,
+                    ParentID = i.ParentID,
+                    InvoiceNumber = i.InvoiceNumber,
+                    CompanyName = i.CompanyName,
+                    SenderAddress = i.SenderAddress,
+                    ReceiveDate = i.ReceiveDate?.ToString(Resources.CustomDateFormat),
+                    MessageMode = i.MessageMode.Caption,
+                    Quantity = $"{i.Quantity:0.}",
+                    Weigth = $"{i.Weigth:0.00}",
+                    UnitPrice = $"{i.UnitPrice:0.00}",
+                    Direction = i.Direction,
+                    ReceiverFirstnameLastname = $"{i.ReceiverFirstname} {i.ReceiverLastname}",
+                    ReceiverTelephoneNumber = i.ReceiverTelephoneNumber,
+                    ReceiverAddress = i.ReceiverAddress
+                }).ToJson();
+
+            AR.IsSuccess = true;
+            AR.Data = new
+            {
+                InvoicesJson = invoicesJson
+            };
+            return Json(AR);
         }
 
         [Route("invoices/create", Name = "InvoicesCreate")]

@@ -107,7 +107,14 @@
             dataType: "json",
             success: function(response) {
                 if (response.IsSuccess) {
-                    window.location = response.Data.RedirectUrl;
+                    if (response.Data.RedirectUrl == null) {
+                        successErrorMessage.Init({
+                            Message: response.Data.Message,
+                            IsSuccess: true
+                        }).ShowMessage();
+                    } else {
+                        window.location = response.Data.RedirectUrl;
+                    }
                 } else {
                     successErrorMessage.Init({
                         Message: response.Data.Message,
