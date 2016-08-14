@@ -1,5 +1,6 @@
 ﻿using Core.Properties;
-using System;
+using SmartExpress.Reusable.Utilities;
+using System.Collections.Generic;
 
 namespace SmartExpress.Admin.Models
 {
@@ -20,17 +21,17 @@ namespace SmartExpress.Admin.Models
 
         public string InvoiceNumber { get; set; }
         public int? MessageTypeID { get; set; }
-        public DateTime? ReceiveDate { get; set; }
-        public DateTime? DeliveryDate { get; set; }
-        public decimal? UnitPrice { get; set; }
-        public decimal? TotalPrice { get; set; }
+        public string ReceiveDate { get; set; }
+        public string DeliveryDate { get; set; }
+        public string UnitPrice { get; set; }
+        public string TotalPrice { get; set; }
         public string Direction { get; set; }
         public string MessageMode { get; set; }
         public int? MessageModeID { get; set; }
         public int? PayerID { get; set; }
         public int? FormOfPaymentID { get; set; }
-        public decimal? Quantity { get; set; }
-        public decimal? Weigth { get; set; }
+        public string Quantity { get; set; }
+        public string Weigth { get; set; }
 
         public int? UserID { get; set; }
         public string CompanyName { get; set; }
@@ -47,13 +48,26 @@ namespace SmartExpress.Admin.Models
         public string WhoReceived { get; set; }
         public string WhoReceivedAdditional { get; set; }
 
+        public List<SimpleKeyValueObject<int?, string>> MessageTypes { get; set; }
+        public List<SimpleKeyValueObject<int?, string>> MessageModes { get; set; }
+        public List<SimpleKeyValueObject<int?, string>> Payers { get; set; }
+        public List<SimpleKeyValueObject<int?, string>> FormOfPaments { get; set; }
+        public List<SimpleKeyValueObject<int?, string>> ContractNumbers { get; set; }
+
+
+
     }
 
     public class CreateEditInvoiceViewModel
     {
         public string SaveUrl { get; set; }
         public string InvoicesUrl { get; set; }
+        public string AddNewInvoiceUrl { get; set; }
+        public string GetSenderInformationUrl { get; set; }
         public string Title { get; set; }
+        public bool HasAddNewButton { get; set; }
+
+        public string CustomDateFormatJs { get; set; } = Resources.CustomDateFormatJs;
 
         public InvoiceObject InvoiceObject { get; set; }
 

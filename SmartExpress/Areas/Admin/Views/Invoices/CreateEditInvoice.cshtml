@@ -3,6 +3,11 @@
     ViewBag.Title = Model.Title;
 }
 
+@section HeaderSection {
+    
+    <link href="~/Content/plugins/jquery-ui-1.12.0/jquery-ui.min.css" rel="stylesheet" />
+}
+
 @section Breadcrumb {
     <div class="row">
         <div class="col-md-12">
@@ -16,8 +21,12 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="actions-bar">
+        <div class="actions-bar ab-btn">
             <a href="@Model.SaveUrl" class="btn btn-success" id="save"><i class="fa fa-floppy-o"></i> დამახსოვრება</a>
+            @if (Model.HasAddNewButton)
+            {
+                <a href="@Model.AddNewInvoiceUrl" class="btn btn-default" id="add-new"><i class="fa fa-plus"></i> დამატება</a>
+            }
         </div>
     </div>
 </div>
@@ -33,7 +42,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>ზედნ. №</label>
-                            <input type="text" class="form-control" id="InvoiceNumber" value="" />
+                            <input type="text" class="form-control" id="InvoiceNumber" value="@Model.InvoiceObject.InvoiceNumber" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -42,6 +51,10 @@
                             <label>გზავნილის ტიპი</label>
                             <select class="form-control" id="MessageType" value="">
                                 <option value=""></option>
+                                @foreach (var messageType in Model.InvoiceObject.MessageTypes)
+                                {
+                                    <option @(Model.InvoiceObject.MessageTypeID == messageType.Key ? Html.Raw("selected='selected'") : null) value="@messageType.Key">@messageType.Value</option>
+                                }
                             </select>
                             <span class="error"></span>
                         </div>
@@ -51,14 +64,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>მიღების თარიღი</label>
-                            <input type="text" class="form-control" id="ReceiveDate" value="" />
+                            <input type="text" class="form-control" id="ReceiveDate" value="@Model.InvoiceObject.ReceiveDate" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>ჩაბარების თარიღი</label>
-                            <input type="text" class="form-control" id="DeliveryDate" value="" />
+                            <input type="text" class="form-control" id="DeliveryDate" value="@Model.InvoiceObject.DeliveryDate" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -67,14 +80,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>ერთეულის ფასი</label>
-                            <input type="text" class="form-control Apply-Numeric" id="UnitPrice" value="" />
+                            <input type="text" class="form-control Apply-Numeric" id="UnitPrice" value="@Model.InvoiceObject.UnitPrice" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>საერთო ფასი</label>
-                            <input type="text" class="form-control Apply-Numeric" id="TotalPrice" value="" />
+                            <input type="text" class="form-control Apply-Numeric" id="TotalPrice" value="@Model.InvoiceObject.TotalPrice" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -83,7 +96,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>მიმართულება</label>
-                            <input type="text" class="form-control" id="Direction" value="" />
+                            <input type="text" class="form-control" id="Direction" value="@Model.InvoiceObject.Direction" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -92,6 +105,10 @@
                             <label>რეჟიმი</label>
                             <select class="form-control" id="MessageMode" value="">
                                 <option value=""></option>
+                                @foreach (var messageMode in Model.InvoiceObject.MessageModes)
+                                {
+                                    <option @(Model.InvoiceObject.MessageModeID == messageMode.Key ? Html.Raw("selected='selected'") : null) value="@messageMode.Key">@messageMode.Value</option>
+                                }
                             </select>
                             <span class="error"></span>
                         </div>
@@ -103,6 +120,10 @@
                             <label>გადამხდელი</label>
                             <select class="form-control" id="Payer" value="">
                                 <option value=""></option>
+                                @foreach (var payer in Model.InvoiceObject.Payers)
+                                {
+                                    <option @(Model.InvoiceObject.PayerID == payer.Key ? Html.Raw("selected='selected'") : null) value="@payer.Key">@payer.Value</option>
+                                }
                             </select>
                             <span class="error"></span>
                         </div>
@@ -112,6 +133,10 @@
                             <label>გადახდის ფორმა</label>
                             <select class="form-control" id="FormOfPayment" value="">
                                 <option value=""></option>
+                                @foreach (var formOfPament in Model.InvoiceObject.FormOfPaments)
+                                {
+                                    <option @(Model.InvoiceObject.FormOfPaymentID == formOfPament.Key ? Html.Raw("selected='selected'") : null) value="@formOfPament.Key">@formOfPament.Value</option>
+                                }
                             </select>
                             <span class="error"></span>
                         </div>
@@ -121,14 +146,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>რაოდენობა</label>
-                            <input type="text" class="form-control Apply-Numeric" id="Quantity" value="" />
+                            <input type="text" class="form-control Apply-Numeric" id="Quantity" value="@Model.InvoiceObject.Quantity" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>წონა</label>
-                            <input type="text" class="form-control Apply-Numeric" id="Weigth" value="" />
+                            <input type="text" class="form-control Apply-Numeric" id="Weigth" value="@Model.InvoiceObject.Weigth" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -148,6 +173,11 @@
                             <label>ხელშ. №</label>
                             <select class="form-control" id="ContractNumber" value="">
                                 <option value=""></option>
+                                @foreach (var contractNumber in Model.InvoiceObject.ContractNumbers)
+                                {
+                                    <option @(Model.InvoiceObject.UserID == contractNumber.Key ? Html.Raw("selected='selected'") : null) value="@contractNumber.Key">@contractNumber.Value</option>
+                                }
+
                             </select>
                             <span class="error"></span>
                         </div>
@@ -155,7 +185,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>კომპანია</label>
-                            <input type="text" class="form-control" id="CompanyName" value="" />
+                            <input type="text" class="form-control" id="CompanyName" value="@Model.InvoiceObject.CompanyName" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -164,14 +194,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>სახელი</label>
-                            <input type="text" class="form-control" id="SenderFirstname" value="" />
+                            <input type="text" class="form-control" id="SenderFirstname" value="@Model.InvoiceObject.SenderFirstname" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>გვარი</label>
-                            <input type="text" class="form-control" id="SenderLastname" value="" />
+                            <input type="text" class="form-control" id="SenderLastname" value="@Model.InvoiceObject.SenderLastname" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -180,14 +210,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>ტელეფონი</label>
-                            <input type="text" class="form-control" id="SenderTelephoneNumber" value="" />
+                            <input type="text" class="form-control" id="SenderTelephoneNumber" value="@Model.InvoiceObject.SenderTelephoneNumber" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>მისამართი</label>
-                            <input type="text" class="form-control" id="SenderAddress" value="" />
+                            <input type="text" class="form-control" id="SenderAddress" value="@Model.InvoiceObject.SenderAddress" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -205,14 +235,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>სახელი</label>
-                            <input type="text" class="form-control" id="ReceiverFirstname" value="" />
+                            <input type="text" class="form-control" id="ReceiverFirstname" value="@Model.InvoiceObject.ReceiverFirstname" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>გვარი</label>
-                            <input type="text" class="form-control" id="ReceiverLastname" value="" />
+                            <input type="text" class="form-control" id="ReceiverLastname" value="@Model.InvoiceObject.ReceiverLastname" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -221,14 +251,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>ტელეფონი</label>
-                            <input type="text" class="form-control" id="ReceiverTelephoneNumber" value="" />
+                            <input type="text" class="form-control" id="ReceiverTelephoneNumber" value="@Model.InvoiceObject.ReceiverTelephoneNumber" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>მისამართი</label>
-                            <input type="text" class="form-control" id="ReceiverAddress" value="" />
+                            <input type="text" class="form-control" id="ReceiverAddress" value="@Model.InvoiceObject.ReceiverAddress" />
                             <span class="error"></span>
                         </div>
                     </div>
@@ -237,14 +267,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>ვინ მიიღო</label>
-                            <input type="text" class="form-control" id="WhoReceived" value="" />
+                            <input type="text" class="form-control" id="WhoReceived" value="@Model.InvoiceObject.WhoReceived" />
                             <span class="error"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>დამატებითი</label>
-                            <textarea type="text" class="form-control" id="WhoReceivedAdditional" value=""></textarea>
+                            <textarea type="text" class="form-control" id="WhoReceivedAdditional" value="">@Model.InvoiceObject.WhoReceivedAdditional   </textarea>
                             <span class="error"></span>
                         </div>
                     </div>
@@ -257,8 +287,12 @@
 @section FooterSection {
     <script src="~/Content/plugins/jquery/masked-input.js"></script>
     <script src="~/Content/plugins/jquery/jquery.numeric-input.js"></script>
+    <script src="~/Content/plugins/successErrorMessage.js"></script>
+    <script src="~/Content/plugins/jquery-ui-1.12.0/jquery-ui.min.js"></script>
     <script>
         var parentID = @Model.InvoiceObject.ParentID;
+        var getSenderInformationUrl = "@Model.GetSenderInformationUrl";
+        var customDateFormatJs = "@Model.CustomDateFormatJs";
     </script>
     <script src="~/Areas/Admin/Content/scripts/Invoices/CreateEditInvoice.js"></script>
 }

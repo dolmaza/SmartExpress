@@ -3,7 +3,43 @@
         allowFloat: true
     });
 
+    $("#DeliveryDate, #ReceiveDate").datepicker({ dateFormat: customDateFormatJs });
+
     $("#ReceiverTelephoneNumber, #SenderTelephoneNumber").mask("(599)-99-99-99");
+
+    $("#ContractNumber").change(function() {
+        var userID = $(this).val();
+        console.log(userID);
+        $.ajax({
+            type: "POST",
+            url: getSenderInformationUrl,
+            data: {
+                ID: userID
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.IsSuccess) {
+
+                    if (response.Data.Sender == null) {
+                        $("#CompanyName").val("");
+                        $("#SenderFirstname").val("");
+                        $("#SenderLastname").val("");
+                        $("#SenderTelephoneNumber").val("");
+                        $("#SenderAddress").val("");
+                    } else {
+                        $("#CompanyName").val(response.Data.Sender.CompanyName);
+                        $("#SenderFirstname").val(response.Data.Sender.Firstname);
+                        $("#SenderLastname").val(response.Data.Sender.Lastname);
+                        $("#SenderTelephoneNumber").val(response.Data.Sender.TelephoneNumber);
+                        $("#SenderAddress").val(response.Data.Sender.Address);
+                    }
+                    
+                } else {
+                    alert(response.Data.Message);
+                }
+            }
+        });
+    });
 
     $("#save").click(function() {
         var url = $(this).attr("href");
@@ -41,19 +77,19 @@
             data: {
                 ParentID: parentID == 0 ? null : parentID,
                 InvoiceNumber: invoiceNumber,
-                MessageType: messageType,
+                MessageTypeID: messageType,
                 ReceiveDate: receiveDate,
                 DeliveryDate: deliveryDate,
                 UnitPrice: unitPrice,
                 TotalPrice: totalPrice,
                 Direction: direction,
-                MessageMode: messageMode,
-                Payer: payer,
-                FormOfPayment: formOfPayment,
+                MessageModeID: messageMode,
+                PayerID: payer,
+                FormOfPaymentID: formOfPayment,
                 Quantity: quantity,
                 Weigth:weigth,
 
-                ContractNumber: contractNumber,
+                UserID: contractNumber,
                 CompanyName: companyName,
                 SenderFirstname: senderFirstname,
                 SenderLastname: senderLastname,
@@ -62,8 +98,8 @@
 
                 ReceiverFirstname: receiverFirstname,
                 ReceiverLastname: receiverLastname,
-                RecieverTelephoneNumber: recieverTelephoneNumber,
-                RecieverAddress: recieverAddress,
+                ReceiverTelephoneNumber: recieverTelephoneNumber,
+                ReceiverAddress: recieverAddress,
                 WhoReceived: whoReceived,
                 WhoReceivedAdditional: whoReceivedAdditional
 
@@ -71,9 +107,12 @@
             dataType: "json",
             success: function(response) {
                 if (response.IsSuccess) {
-                    alert("success");
+                    window.location = response.Data.RedirectUrl;
                 } else {
-                    alert("error");
+                    successErrorMessage.Init({
+                        Message: response.Data.Message,
+                        IsError: true
+                    }).ShowMessage();
                 }
             }
         });

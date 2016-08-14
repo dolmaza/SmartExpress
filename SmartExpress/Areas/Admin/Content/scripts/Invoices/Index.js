@@ -47,13 +47,15 @@
         },
 
         columns: [
+
+            
+            { text: "ზედნ. №", dataField: "InvoiceNumber", width: 90 },
             {
-                text: "<i class='fa fa-cog'></i>", width: 90, cellsAlign: 'center', align: "center", columnType: 'none', editable: false, sortable: false, dataField: "ParentID", cellsRenderer: function (id, column, parentID) {
+                text: "<i class='fa fa-cog'></i>", width: 100, cellsAlign: 'center', align: "center", columnType: 'none', editable: false, sortable: false, dataField: "ParentID", cellsRenderer: function (id, column, parentID) {
                     // render custom column.
                     return "<a href='/admin/invoices/" + id + "/edit/' class='invoice-edit'><i class='fa fa-pencil'></i></a> <a href='/admin/invoices/" + id + "/create' class='invoice-create'><i class='fa fa-plus'></i></a> <a href='/admin/invoices/" + id + "/delete' class='invoice-delete'><i class='fa fa-trash-o'></i></a>";
                 }
             },
-            { text: "ზედნ. №", dataField: "InvoiceNumber", width: 90 },
             { text: "კომპანია", dataField: "CompanyName", width: 100 },
             { text: "მისამართი", dataField: "SenderAddress", width: 100 },
             { text: "მიღ. თარიღი", dataField: "ReceiveDate", width: 100 },
@@ -63,12 +65,16 @@
             { text: "ერთ. ფასი", dataField: "UnitPrice", width: 100 },
             { text: "მიმართულება", dataField: "Direction", width: 100 },
             { text: "მიმღ. სახ. გვარი", dataField: "ReceiverFirstnameLastname", width: 150 },
-            { text: "მიმღ. ტელ.", dataField: "ReceiverTelephoneNumber", width: 100 },
-            { text: "მიმღ. მისამართი", dataField: "ReceiverAddress", width: 100 }
+            { text: "მიმღ. ტელ.", dataField: "ReceiverTelephoneNumber", width: 120 },
+            { text: "მიმღ. მისამართი", dataField: "ReceiverAddress", width: 120 }
             
 
         ]
 
     });
+
+    $("#treeGrid").on("click", ".invoice-delete", function() {
+        return confirm(confirmDeleteText);
+    })
 
 });

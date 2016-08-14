@@ -26,6 +26,12 @@ namespace SmartExpress.Admin.Reusable
             decimal? dcm = null;
             if (str != null)
             {
+                if (str.Contains("."))
+                {
+                    str = str.Replace(".", ",");
+
+                }
+
                 dcm = decimal.Parse(str);
             }
             return dcm;
@@ -47,5 +53,13 @@ namespace SmartExpress.Admin.Reusable
 
 
         }
+
+        public static DateTime? ToDateTime(this string str)
+        {
+            var date = string.IsNullOrEmpty(str) ? (DateTime?)null : DateTime.Parse(str);
+
+            return date;
+        }
+
     }
 }

@@ -70,6 +70,24 @@ namespace Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dd.MM.yyyy.
+        /// </summary>
+        public static string CustomDateFormat {
+            get {
+                return ResourceManager.GetString("CustomDateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dd.mm.yy.
+        /// </summary>
+        public static string CustomDateFormatJs {
+            get {
+                return ResourceManager.GetString("CustomDateFormatJs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ოპერაცია წარმატებით დასრულდა.
         /// </summary>
         public static string Success {

@@ -38,7 +38,7 @@
 }
 
 #ui-datepicker-div {
-    z-index: 500 !important;
+    z-index: 1000 !important;
 }
 
 .btn-file {

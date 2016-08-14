@@ -3,6 +3,7 @@ using Core.Properties;
 using Core.Utilities;
 using SmartExpress.Admin.Models;
 using SmartExpress.Admin.Reusable;
+using SmartExpress.Reusable.Utilities;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -19,18 +20,22 @@ namespace SmartExpress.Areas.Admin.Controllers
             var model = new InvoiceViewModel
             {
                 InvoiceCreateUrl = Url.RouteUrl("InvoicesCreate"),
-                InvoicesJson = UnitOfWork.InvoiceRepository.GetAll().Include(i => i.MessageMode).ToList().Select(i => new InvoiceObject
+
+                InvoicesJson = UnitOfWork.InvoiceRepository.GetAll()
+                .Include(i => i.MessageMode)
+                .ToList()
+                .Select(i => new InvoiceObject
                 {
                     ID = i.ID,
                     ParentID = i.ParentID,
                     InvoiceNumber = i.InvoiceNumber,
                     CompanyName = i.CompanyName,
                     SenderAddress = i.SenderAddress,
-                    ReceiveDate = i.ReceiveDate,
+                    ReceiveDate = i.ReceiveDate?.ToString(Resources.CustomDateFormat),
                     MessageMode = i.MessageMode.Caption,
-                    Quantity = i.Quantity,
-                    Weigth = i.Weigth,
-                    UnitPrice = i.UnitPrice,
+                    Quantity = $"{i.Quantity:0.}",
+                    Weigth = $"{i.Weigth:0.00}",
+                    UnitPrice = $"{i.UnitPrice:0.00}",
                     Direction = i.Direction,
                     ReceiverFirstnameLastname = $"{i.ReceiverFirstname} {i.ReceiverLastname}",
                     ReceiverTelephoneNumber = i.ReceiverTelephoneNumber,
@@ -41,19 +46,66 @@ namespace SmartExpress.Areas.Admin.Controllers
         }
 
         [Route("invoices/create", Name = "InvoicesCreate")]
-        [Route("invoices/{parentID}/create")]
+        [Route("invoices/{parentID}/create", Name = "InvoicesCreateChild")]
         public ActionResult CreateInvoice(int? parentID)
         {
+            GenerateSuccessErrorMessageContainer();
+            var invoice = parentID != null ? UnitOfWork.InvoiceRepository.Get(parentID) : new Invoice();
             var model = new CreateEditInvoiceViewModel
             {
-                SaveUrl = Url.RouteUrl("InvoicesCreate"),
+                SaveUrl = parentID == null ? Url.RouteUrl("InvoicesCreate") : Url.RouteUrl("InvoicesCreateChild", new { ParentID = parentID }),
                 InvoicesUrl = Url.RouteUrl("Invoices"),
+                GetSenderInformationUrl = Url.RouteUrl("GetSenderInformation"),
                 Title = "ზედნადების დამატება",
                 InvoiceObject = new InvoiceObject
                 {
-                    ParentID = parentID ?? 0
+                    ParentID = parentID ?? 0,
+                    InvoiceNumber = invoice.InvoiceNumber,
+                    ReceiveDate = invoice.ReceiveDate?.ToString(Resources.CustomDateFormat),
+                    DeliveryDate = invoice.DeliveryDate?.ToString(Resources.CustomDateFormat),
+                    TotalPrice = $"{invoice.TotalPrice:0.00}",
+                    Quantity = $"{invoice.Quantity:0.}",
+
+                    UserID = invoice.UserID,
+                    CompanyName = invoice.CompanyName,
+                    SenderFirstname = invoice.SenderFirstname,
+                    SenderLastname = invoice.SenderLastname,
+                    SenderTelephoneNumber = invoice.SenderTelephoneNumber,
+                    SenderAddress = invoice.SenderAddress,
+
+
+                    MessageTypes = UnitOfWork.DictionaryRepository.GetAllByCodeAndLevel(1, 2, true).Select(m => new SimpleKeyValueObject<int?, string>
+                    {
+                        Key = m.ID,
+                        Value = m.Caption
+                    }).ToList(),
+
+                    MessageModes = UnitOfWork.DictionaryRepository.GetAllByCodeAndLevel(1, 3, true).Select(m => new SimpleKeyValueObject<int?, string>
+                    {
+                        Key = m.ID,
+                        Value = m.Caption
+                    }).ToList(),
+
+                    Payers = UnitOfWork.DictionaryRepository.GetAllByCodeAndLevel(1, 4, true).Select(m => new SimpleKeyValueObject<int?, string>
+                    {
+                        Key = m.ID,
+                        Value = m.Caption
+                    }).ToList(),
+
+                    FormOfPaments = UnitOfWork.DictionaryRepository.GetAllByCodeAndLevel(1, 5, true).Select(m => new SimpleKeyValueObject<int?, string>
+                    {
+                        Key = m.ID,
+                        Value = m.Caption
+                    }).ToList(),
+
+                    ContractNumbers = UnitOfWork.UserRepository.GetAll().Select(m => new SimpleKeyValueObject<int?, string>
+                    {
+                        Key = m.ID,
+                        Value = m.ContractNumber
+                    }).ToList(),
                 }
             };
+
             return View("CreateEditInvoice", model);
         }
 
@@ -69,17 +121,18 @@ namespace SmartExpress.Areas.Admin.Controllers
                 ParentID = model.ParentID,
                 InvoiceNumber = model.InvoiceNumber,
                 MessageTypeID = model.MessageTypeID,
-                ReceiveDate = model.ReceiveDate,
-                DeliveryDate = model.DeliveryDate,
-                UnitPrice = model.UnitPrice,
-                TotalPrice = model.TotalPrice,
+                ReceiveDate = model.ReceiveDate.ToDateTime(),
+                DeliveryDate = model.DeliveryDate.ToDateTime(),
+                UnitPrice = model.UnitPrice.ToDecimal(),
+                TotalPrice = model.TotalPrice.ToDecimal(),
                 Direction = model.Direction,
                 MessageModeID = model.MessageModeID,
                 PayerID = model.PayerID,
                 FormOfPaymentID = model.FormOfPaymentID,
-                Quantity = model.Quantity,
-                Weigth = model.Weigth,
+                Quantity = model.Quantity.ToDecimal(),
+                Weigth = model.Weigth.ToDecimal(),
 
+                UserID = model.UserID,
                 CompanyName = model.CompanyName,
                 SenderFirstname = model.SenderFirstname,
                 SenderLastname = model.SenderLastname,
@@ -118,7 +171,7 @@ namespace SmartExpress.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("invoices/sender/{ID}/information", Name = "GetSenderInformation")]
+        [Route("invoices/get-sender-information", Name = "GetSenderInformation")]
         public ActionResult GetSenderInformation(int? ID)
         {
             var AR = new AjaxResponse();
@@ -133,7 +186,8 @@ namespace SmartExpress.Areas.Admin.Controllers
                 AR.IsSuccess = true;
                 AR.Data = new
                 {
-                    Sender = user
+                    Sender = user,
+                    IsSenderObjectNull = user.ID == null
                 };
 
                 return Json(AR);
@@ -144,6 +198,7 @@ namespace SmartExpress.Areas.Admin.Controllers
         [Route("invoices/{ID}/edit", Name = "InvoicesEdit")]
         public ActionResult EditInvoice(int? ID)
         {
+            GenerateSuccessErrorMessageContainer();
             var invoice = UnitOfWork.InvoiceRepository.Get(ID);
             if (invoice == null)
             {
@@ -154,23 +209,28 @@ namespace SmartExpress.Areas.Admin.Controllers
                 var model = new CreateEditInvoiceViewModel
                 {
                     SaveUrl = Url.RouteUrl("InvoicesEdit", new { ID = invoice.ID }),
+                    GetSenderInformationUrl = Url.RouteUrl("GetSenderInformation"),
                     InvoicesUrl = Url.RouteUrl("Invoices"),
                     Title = "ზედნადების რედაქტირება",
+                    AddNewInvoiceUrl = invoice.ParentID == null ? Url.RouteUrl("InvoicesCreateChild", new { parentID = invoice.ID }) : Url.RouteUrl("InvoicesCreateChild", new { parentID = invoice.ParentID }),
+                    HasAddNewButton = true,
                     InvoiceObject = new InvoiceObject
                     {
+                        ParentID = invoice.ParentID ?? 0,
                         InvoiceNumber = invoice.InvoiceNumber,
                         MessageTypeID = invoice.MessageTypeID,
-                        ReceiveDate = invoice.ReceiveDate,
-                        DeliveryDate = invoice.DeliveryDate,
-                        UnitPrice = invoice.UnitPrice,
-                        TotalPrice = invoice.TotalPrice,
+                        ReceiveDate = invoice.ReceiveDate?.ToString(Resources.CustomDateFormat),
+                        DeliveryDate = invoice.DeliveryDate?.ToString(Resources.CustomDateFormat),
+                        UnitPrice = $"{invoice.UnitPrice:0.00}",
+                        TotalPrice = $"{invoice.TotalPrice:0.00}",
                         Direction = invoice.Direction,
                         MessageModeID = invoice.MessageModeID,
                         PayerID = invoice.PayerID,
                         FormOfPaymentID = invoice.FormOfPaymentID,
-                        Quantity = invoice.Quantity,
-                        Weigth = invoice.Weigth,
+                        Quantity = $"{invoice.Quantity:0.}",
+                        Weigth = $"{invoice.Weigth:0.00}",
 
+                        UserID = invoice.UserID,
                         CompanyName = invoice.CompanyName,
                         SenderFirstname = invoice.SenderFirstname,
                         SenderLastname = invoice.SenderLastname,
@@ -182,7 +242,37 @@ namespace SmartExpress.Areas.Admin.Controllers
                         ReceiverTelephoneNumber = invoice.ReceiverTelephoneNumber,
                         ReceiverAddress = invoice.ReceiverAddress,
                         WhoReceived = invoice.WhoReceived,
-                        WhoReceivedAdditional = invoice.WhoReceivedAdditional
+                        WhoReceivedAdditional = invoice.WhoReceivedAdditional,
+
+                        MessageTypes = UnitOfWork.DictionaryRepository.GetAllByCodeAndLevel(1, 2, true).Select(m => new SimpleKeyValueObject<int?, string>
+                        {
+                            Key = m.ID,
+                            Value = m.Caption
+                        }).ToList(),
+
+                        MessageModes = UnitOfWork.DictionaryRepository.GetAllByCodeAndLevel(1, 3, true).Select(m => new SimpleKeyValueObject<int?, string>
+                        {
+                            Key = m.ID,
+                            Value = m.Caption
+                        }).ToList(),
+
+                        Payers = UnitOfWork.DictionaryRepository.GetAllByCodeAndLevel(1, 4, true).Select(m => new SimpleKeyValueObject<int?, string>
+                        {
+                            Key = m.ID,
+                            Value = m.Caption
+                        }).ToList(),
+
+                        FormOfPaments = UnitOfWork.DictionaryRepository.GetAllByCodeAndLevel(1, 5, true).Select(m => new SimpleKeyValueObject<int?, string>
+                        {
+                            Key = m.ID,
+                            Value = m.Caption
+                        }).ToList(),
+
+                        ContractNumbers = UnitOfWork.UserRepository.GetAll().Select(m => new SimpleKeyValueObject<int?, string>
+                        {
+                            Key = m.ID,
+                            Value = m.ContractNumber
+                        }).ToList(),
                     }
                 };
                 return View("CreateEditInvoice", model);
@@ -202,17 +292,18 @@ namespace SmartExpress.Areas.Admin.Controllers
                 ParentID = model.ParentID,
                 InvoiceNumber = model.InvoiceNumber,
                 MessageTypeID = model.MessageTypeID,
-                ReceiveDate = model.ReceiveDate,
-                DeliveryDate = model.DeliveryDate,
-                UnitPrice = model.UnitPrice,
-                TotalPrice = model.TotalPrice,
+                ReceiveDate = model.ReceiveDate.ToDateTime(),
+                DeliveryDate = model.DeliveryDate.ToDateTime(),
+                UnitPrice = model.UnitPrice.ToDecimal(),
+                TotalPrice = model.TotalPrice.ToDecimal(),
                 Direction = model.Direction,
                 MessageModeID = model.MessageModeID,
                 PayerID = model.PayerID,
                 FormOfPaymentID = model.FormOfPaymentID,
-                Quantity = model.Quantity,
-                Weigth = model.Weigth,
+                Quantity = model.Quantity.ToDecimal(),
+                Weigth = model.Weigth.ToDecimal(),
 
+                UserID = model.UserID,
                 CompanyName = model.CompanyName,
                 SenderFirstname = model.SenderFirstname,
                 SenderLastname = model.SenderLastname,

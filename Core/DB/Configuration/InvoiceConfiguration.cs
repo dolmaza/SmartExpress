@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Infrastructure.Annotations;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
 
 namespace Core.DB.Configuration
 {
@@ -35,7 +33,7 @@ namespace Core.DB.Configuration
 
 
             Property(i => i.ReceiverTelephoneNumber)
-                .HasMaxLength(10);
+                .HasMaxLength(20);
 
             Property(i => i.ReceiverAddress)
                 .HasMaxLength(500);
@@ -47,8 +45,8 @@ namespace Core.DB.Configuration
                 .HasMaxLength(500);
 
 
-            Property(i => i.ReceiverTelephoneNumber)
-                .HasMaxLength(10);
+            Property(i => i.SenderTelephoneNumber)
+                .HasMaxLength(30);
 
 
             Property(i => i.WhoReceived)
@@ -56,14 +54,7 @@ namespace Core.DB.Configuration
 
 
             Property(i => i.InvoiceNumber)
-                .HasMaxLength(30)
-                .HasColumnAnnotation(
-                    "Index",
-                    new IndexAnnotation(
-                        new IndexAttribute("IX_InvoiceNumberUniq")
-                        {
-                            IsUnique = true
-                        }));
+                .HasMaxLength(30);
 
             HasOptional(i => i.Parent)
                 .WithMany(i => i.Parents)

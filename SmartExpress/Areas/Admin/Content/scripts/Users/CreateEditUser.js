@@ -36,7 +36,7 @@
             success: function (response) {
                 if (response.IsSuccess) {
                     var redirectUrl = response.Data.RedirectUrl;
-                    console.log(redirectUrl);
+                    
                     if (redirectUrl == null) {
                         successErrorMessage.Init({
                             Message: response.Data.Message,

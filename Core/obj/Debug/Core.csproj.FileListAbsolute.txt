@@ -21,3 +21,6 @@ C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debu
 C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.AddWeigthColumnInInvoiceTable.resources
 C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.AddParentIDColumnInInvoiceTable.resources
 C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.EditedRelationtipsInInvoiceTable.resources
+C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.ChangedSenderTelephoneNumberMaxLengthInInvoicesTable.resources
+C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.ChangedReceiverTelephoneNumberMaxLengthInInvoicesTable.resources
+C:\Users\Giorgi\Documents\Visual Studio 2015\Projects\SmartExpress\Core\obj\Debug\Core.Migrations.ChangedInvoiceNumberToNotUniqInInvoicesTable.resources
