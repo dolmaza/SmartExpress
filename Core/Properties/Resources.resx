@@ -121,10 +121,10 @@
     <value>ბოდიშს გიხდით შეფერხებისთვის, ოპერაცია ვერ შესრულდა წარმატებით</value>
   </data>
   <data name="CustomDateFormat" xml:space="preserve">
-    <value>dd.MM.yyyy</value>
+    <value>MMM dd yyyy</value>
   </data>
   <data name="CustomDateFormatJs" xml:space="preserve">
-    <value>dd.mm.yy</value>
+    <value>M dd yy</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>ოპერაცია წარმატებით დასრულდა</value>

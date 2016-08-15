@@ -23,6 +23,7 @@ namespace SmartExpress.Areas.Admin.Controllers
                 InvoicesByReceiveDateUrl = Url.RouteUrl("InvoicesByReceiveDate"),
 
                 InvoicesJson = UnitOfWork.InvoiceRepository.GetAll()
+                .OrderByDescending(i => i.ReceiveDate)
                 .Include(i => i.MessageMode)
                 .ToList()
                 .Select(i => new InvoiceObject
@@ -52,7 +53,11 @@ namespace SmartExpress.Areas.Admin.Controllers
         {
             var AR = new AjaxResponse();
             var invoicesJson = UnitOfWork.InvoiceRepository.GetAll()
-                .Where(i => (dateFrom == null && dateTo == null) || (i.ReceiveDate >= dateFrom || i.ReceiveDate < dateTo))
+                .Where(i => (dateFrom == null && dateTo == null)
+                        || (dateFrom != null && dateTo == null && i.ReceiveDate >= dateFrom)
+                        || (dateFrom == null && dateTo != null && i.ReceiveDate <= dateTo)
+                        || (dateFrom != null && dateTo != null && i.ReceiveDate >= dateFrom && i.ReceiveDate <= dateTo))
+                .OrderByDescending(i => i.ReceiveDate)
                 .Include(i => i.MessageMode)
                 .ToList()
                 .Select(i => new InvoiceObject

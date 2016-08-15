@@ -70,7 +70,7 @@ namespace Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dd.MM.yyyy.
+        ///   Looks up a localized string similar to MMM dd yyyy.
         /// </summary>
         public static string CustomDateFormat {
             get {
@@ -79,7 +79,7 @@ namespace Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dd.mm.yy.
+        ///   Looks up a localized string similar to M dd yy.
         /// </summary>
         public static string CustomDateFormatJs {
             get {

@@ -1,6 +1,10 @@
 ﻿$(function() {
 
-    $("#From, #To").datepicker({ dateFormat: customDateFormatJs });
+    $("#From, #To").datepicker({
+        dateFormat: customDateFormatJs,
+        changeMonth: true,
+        changeYear: true
+    });
 
     $("#ClearDates").click(function () {
         $("#From").val("");

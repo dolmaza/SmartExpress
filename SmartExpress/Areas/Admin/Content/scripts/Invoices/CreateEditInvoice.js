@@ -2,8 +2,8 @@
     $(".Apply-Numeric").numericInput({
         allowFloat: true
     });
-
-    $("#DeliveryDate, #ReceiveDate").datepicker({ dateFormat: customDateFormatJs });
+    $("#DeliveryDate").datepicker({ dateFormat: customDateFormatJs, defaultDate: receiveDate });
+    $("#ReceiveDate").datepicker({ dateFormat: customDateFormatJs, defaultDate: deliveryDate });
 
     $("#ReceiverTelephoneNumber, #SenderTelephoneNumber").mask("(599)-99-99-99");
 
