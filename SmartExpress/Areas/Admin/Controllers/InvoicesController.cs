@@ -6,8 +6,11 @@ using SmartExpress.Admin.Reusable;
 using SmartExpress.Reusable.Utilities;
 using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace SmartExpress.Areas.Admin.Controllers
 {
@@ -20,6 +23,7 @@ namespace SmartExpress.Areas.Admin.Controllers
             var model = new InvoiceViewModel
             {
                 InvoiceCreateUrl = Url.RouteUrl("InvoicesCreate"),
+                InvoicesExportToExcelUrl = Url.RouteUrl("InvoicesExportToExcel"),
                 InvoicesByReceiveDateUrl = Url.RouteUrl("InvoicesByReceiveDate"),
 
                 InvoicesJson = UnitOfWork.InvoiceRepository.GetAll()
@@ -388,6 +392,49 @@ namespace SmartExpress.Areas.Admin.Controllers
             if (UnitOfWork.InvoiceRepository.IsError)
             {
                 InitErrorMessage(Resources.Abort);
+            }
+
+            return Redirect(Url.RouteUrl("Invoices"));
+        }
+
+        [Route("invoices/export-to-excel", Name = "InvoicesExportToExcel")]
+        public ActionResult InvoicesExportToExcel()
+        {
+            // Step 1 - get the data from database
+            var data = UnitOfWork.InvoiceRepository.GetAll().Select(d => new
+            {
+
+            }).ToList();
+
+
+
+            // instantiate the GridView control from System.Web.UI.WebControls namespace
+            // set the data source
+            var gridview = new GridView
+            {
+                DataSource = data
+            };
+            gridview.DataBind();
+
+            // Clear all the content from the current response
+            Response.ClearContent();
+            Response.Buffer = true;
+            // set the header
+            Response.AddHeader("content-disposition", "attachment; filename = Invoices.xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+            // create HtmlTextWriter object with StringWriter
+            using (var sw = new StringWriter())
+            {
+                using (var htw = new HtmlTextWriter(sw))
+                {
+                    // render the GridView to the HtmlTextWriter
+                    gridview.RenderControl(htw);
+                    // Output the GridView content saved into StringWriter
+                    Response.Output.Write(sw.ToString());
+                    Response.Flush();
+                    Response.End();
+                }
             }
 
             return Redirect(Url.RouteUrl("Invoices"));

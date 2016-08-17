@@ -8,6 +8,7 @@ namespace SmartExpress.Admin.Models
     {
         public string InvoiceCreateUrl { get; set; }
         public string InvoicesByReceiveDateUrl { get; set; }
+        public string InvoicesExportToExcelUrl { get; set; }
         public string ConfirmDeleteText { get; set; } = Resources.TextConfirmDelete;
         public string CustomDateFormatJs { get; set; } = Resources.CustomDateFormatJs;
         public string CustomDateFormat { get; set; } = Resources.CustomDateFormat;
