@@ -1,6 +1,7 @@
 ﻿using Core.Properties;
 using SmartExpress.Reusable.Utilities;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SmartExpress.Admin.Models
 {
@@ -76,5 +77,81 @@ namespace SmartExpress.Admin.Models
         public InvoiceObject InvoiceObject { get; set; }
 
 
+    }
+
+    public class InvoicesExportToExcelViewModel
+    {
+        [Display(Name = "ზედნ. №")]
+        public string InvoiceNumber { get; set; }
+
+        [Display(Name = "გზავნილის ტიპი")]
+        public string MessageTypeCaption { get; set; }
+
+        [Display(Name = "მიღების თარიღი")]
+        public string ReceiveDate { get; set; }
+
+        [Display(Name = "ჩაბარების თარიღი")]
+        public string DeliveryDate { get; set; }
+
+        [Display(Name = "ერთეულის ფასი")]
+        public string UnitPrice { get; set; }
+
+        [Display(Name = "საერთო ფასი")]
+        public string TotalPrice { get; set; }
+
+        [Display(Name = "მიმართულება")]
+        public string Direction { get; set; }
+
+        [Display(Name = "რეჟიმი")]
+        public string MessageModeCaption { get; set; }
+
+        [Display(Name = "გადამხდელი")]
+        public string PayerCaption { get; set; }
+
+        [Display(Name = "გადახდის ფორმა")]
+        public string FormOfPaymentCaption { get; set; }
+
+        [Display(Name = "რაოდენობა")]
+        public string Quantity { get; set; }
+
+        [Display(Name = "წონა")]
+        public string Weigth { get; set; }
+
+        [Display(Name = "ხელშეკრულების №")]
+        public string ContractNumber { get; set; }
+
+        [Display(Name = "კომპანია")]
+        public string CompanyName { get; set; }
+
+        [Display(Name = "გამგზავნის სახელი")]
+        public string SenderFirstname { get; set; }
+
+        [Display(Name = "გამგზავნის გვარი")]
+        public string SenderLastname { get; set; }
+
+        [Display(Name = "გამგზავნის ტელეფონი")]
+        public string SenderTelephoneNumber { get; set; }
+
+        [Display(Name = "გამგზავნის მისამართი")]
+        public string SenderAddress { get; set; }
+
+
+        [Display(Name = "მიმღების სახელი")]
+        public string ReceiverFirstname { get; set; }
+
+        [Display(Name = "მიმღების გვარი")]
+        public string ReceiverLastname { get; set; }
+
+        [Display(Name = "მიმღების ტელეფონი")]
+        public string ReceiverTelephoneNumber { get; set; }
+
+        [Display(Name = "მიმღების მისამართი")]
+        public string ReceiverAddress { get; set; }
+
+        [Display(Name = "ვინ მიიღო")]
+        public string WhoReceived { get; set; }
+
+        [Display(Name = "დამატებითი")]
+        public string WhoReceivedAdditional { get; set; }
     }
 }

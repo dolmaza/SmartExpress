@@ -38,3 +38,43 @@ c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\SmartExpress\
 c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\SmartExpress\obj\Debug\SmartExpress.csprojResolveAssemblyReference.cache
 c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\SmartExpress\obj\Debug\SmartExpress.dll
 c:\users\giorgi\documents\visual studio 2015\Projects\SmartExpress\SmartExpress\obj\Debug\SmartExpress.pdb
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\ApplicationInsights.config
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\csc.exe
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\System.Collections.Immutable.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\System.Reflection.Metadata.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\vbc.exe
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\VBCSCompiler.exe
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\roslyn\VBCSCompiler.exe.config
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\SmartExpress.dll.config
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\SmartExpress.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\SmartExpress.pdb
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\Core.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\EntityFramework.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\EntityFramework.SqlServer.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\Microsoft.Web.Infrastructure.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Helpers.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Mvc.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Razor.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Webpages.Deployment.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Webpages.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Webpages.Razor.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\Core.pdb
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\EntityFramework.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\EntityFramework.SqlServer.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Razor.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Webpages.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Webpages.Deployment.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Webpages.Razor.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Helpers.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Mvc.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\obj\Debug\SmartExpress.csprojResolveAssemblyReference.cache
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\obj\Debug\SmartExpress.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\obj\Debug\SmartExpress.pdb

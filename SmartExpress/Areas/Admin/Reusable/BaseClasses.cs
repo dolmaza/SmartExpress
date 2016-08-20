@@ -61,4 +61,6 @@ namespace SmartExpress.Admin.Reusable
             UnitOfWork = new UnitOfWork(new DbCoreDataContext());
         }
     }
+
+
 }

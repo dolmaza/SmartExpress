@@ -3,13 +3,12 @@ using Core.Properties;
 using Core.Utilities;
 using SmartExpress.Admin.Models;
 using SmartExpress.Admin.Reusable;
+using SmartExpress.Admin.Reusable.Helpers;
 using SmartExpress.Reusable.Utilities;
 using System;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace SmartExpress.Areas.Admin.Controllers
@@ -56,14 +55,7 @@ namespace SmartExpress.Areas.Admin.Controllers
         public ActionResult InvoicesByReseiveDate(DateTime? dateFrom, DateTime? dateTo)
         {
             var AR = new AjaxResponse();
-            var invoicesJson = UnitOfWork.InvoiceRepository.GetAll()
-                .Where(i => (dateFrom == null && dateTo == null)
-                        || (dateFrom != null && dateTo == null && i.ReceiveDate >= dateFrom)
-                        || (dateFrom == null && dateTo != null && i.ReceiveDate <= dateTo)
-                        || (dateFrom != null && dateTo != null && i.ReceiveDate >= dateFrom && i.ReceiveDate <= dateTo))
-                .OrderByDescending(i => i.ReceiveDate)
-                .Include(i => i.MessageMode)
-                .ToList()
+            var invoicesJson = UnitOfWork.InvoiceRepository.GetInvociesByReceiveDate(dateFrom, dateTo)
                 .Select(i => new InvoiceObject
                 {
                     ID = i.ID,
@@ -398,44 +390,40 @@ namespace SmartExpress.Areas.Admin.Controllers
         }
 
         [Route("invoices/export-to-excel", Name = "InvoicesExportToExcel")]
-        public ActionResult InvoicesExportToExcel()
+        public ActionResult InvoicesExportToExcel(DateTime? dateFrom, DateTime? dateTo)
         {
-            // Step 1 - get the data from database
-            var data = UnitOfWork.InvoiceRepository.GetAll().Select(d => new
+            var invoices = UnitOfWork.InvoiceRepository.GetInvoicesForExportExcel(dateFrom, dateTo).Select(i => new InvoicesExportToExcelViewModel
             {
+                InvoiceNumber = i.InvoiceNumber,
+                MessageTypeCaption = i.MessageType.Caption,
+                ReceiveDate = i.ReceiveDate?.ToString(Resources.CustomDateFormat),
+                DeliveryDate = i.DeliveryDate?.ToString(Resources.CustomDateFormat),
+                UnitPrice = $"{i.UnitPrice:0.00}",
+                TotalPrice = $"{i.TotalPrice:0.00}",
+                Direction = i.Direction,
+                MessageModeCaption = i.MessageMode.Caption,
+                PayerCaption = i.Payer.Caption,
+                FormOfPaymentCaption = i.FormOfPayment.Caption,
+                Quantity = $"{i.Quantity:0.}",
+                Weigth = $"{i.Weigth:0.00}",
+
+                ContractNumber = i.User.ContractNumber,
+                CompanyName = i.CompanyName,
+                SenderFirstname = i.SenderFirstname,
+                SenderLastname = i.SenderLastname,
+                SenderAddress = i.SenderAddress,
+                SenderTelephoneNumber = i.SenderTelephoneNumber,
+
+                ReceiverFirstname = i.ReceiverFirstname,
+                ReceiverLastname = i.ReceiverLastname,
+                ReceiverTelephoneNumber = i.ReceiverTelephoneNumber,
+                ReceiverAddress = i.ReceiverAddress,
+                WhoReceived = i.WhoReceived,
+                WhoReceivedAdditional = i.WhoReceivedAdditional
 
             }).ToList();
 
-
-
-            // instantiate the GridView control from System.Web.UI.WebControls namespace
-            // set the data source
-            var gridview = new GridView
-            {
-                DataSource = data
-            };
-            gridview.DataBind();
-
-            // Clear all the content from the current response
-            Response.ClearContent();
-            Response.Buffer = true;
-            // set the header
-            Response.AddHeader("content-disposition", "attachment; filename = Invoices.xls");
-            Response.ContentType = "application/ms-excel";
-            Response.Charset = "";
-            // create HtmlTextWriter object with StringWriter
-            using (var sw = new StringWriter())
-            {
-                using (var htw = new HtmlTextWriter(sw))
-                {
-                    // render the GridView to the HtmlTextWriter
-                    gridview.RenderControl(htw);
-                    // Output the GridView content saved into StringWriter
-                    Response.Output.Write(sw.ToString());
-                    Response.Flush();
-                    Response.End();
-                }
-            }
+            InvoiceHelper.InitInvoicesDataForExcel(invoices, this);
 
             return Redirect(Url.RouteUrl("Invoices"));
         }

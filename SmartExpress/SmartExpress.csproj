@@ -204,6 +204,7 @@
     <Compile Include="Areas\Admin\Reusable\BaseClasses.cs" />
     <Compile Include="Areas\Admin\Reusable\Extentions.cs" />
     <Compile Include="Areas\Admin\Reusable\FilterAttributes\BeforePageLoads.cs" />
+    <Compile Include="Areas\Admin\Reusable\Helpers\InvoiceHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
