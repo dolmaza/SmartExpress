@@ -1,6 +1,7 @@
 ﻿using Core;
 using Core.Properties;
 using Core.Utilities;
+using OfficeOpenXml;
 using SmartExpress.Admin.Models;
 using SmartExpress.Admin.Reusable;
 using SmartExpress.Admin.Reusable.Helpers;
@@ -8,6 +9,7 @@ using SmartExpress.Reusable.Utilities;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -424,6 +426,34 @@ namespace SmartExpress.Areas.Admin.Controllers
             }).ToList();
 
             InvoiceHelper.InitInvoicesDataForExcel(invoices, this);
+
+            return Redirect(Url.RouteUrl("Invoices"));
+        }
+
+        [Route("invoices/import-from-excel", Name = "InvoicesImportFromExcel")]
+        public ActionResult InvoicesImportFromExcel(HttpPostedFileBase file)
+        {
+            if (file == null)
+            {
+                InitErrorMessage(Resources.Abort);
+            }
+            else
+            {
+                string fileName = file.FileName;
+                string fileContentType = file.ContentType;
+                byte[] fileBytes = new byte[file.ContentLength];
+                var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+
+                using (var package = new ExcelPackage(file.InputStream))
+                {
+                    var currentSheet = package.Workbook.Worksheets;
+                    var workSheet = currentSheet.First();
+                    var noOfCol = workSheet.Dimension.End.Column;
+                    var noOfRow = workSheet.Dimension.End.Row;
+
+                }
+            }
+
 
             return Redirect(Url.RouteUrl("Invoices"));
         }

@@ -10,6 +10,9 @@ namespace Core.Utilities
         public static string SuccessMessageKey => "SuccessMessage";
         public static string AuthenticatedUserKey => "UserItem";
 
+        public static string UploadFolderPhysicalPath => GetConfigValue();
+        public static string UploadFolderHttpPath => GetConfigValue();
+
     }
 
     public class ConfigAssistant

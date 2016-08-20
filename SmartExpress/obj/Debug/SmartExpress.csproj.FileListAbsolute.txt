@@ -78,3 +78,5 @@ D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\System.Web.Mvc.xml
 D:\Projects\MVC Projectes\SmartExpress\SmartExpress\obj\Debug\SmartExpress.csprojResolveAssemblyReference.cache
 D:\Projects\MVC Projectes\SmartExpress\SmartExpress\obj\Debug\SmartExpress.dll
 D:\Projects\MVC Projectes\SmartExpress\SmartExpress\obj\Debug\SmartExpress.pdb
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\EPPlus.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\EPPlus.xml

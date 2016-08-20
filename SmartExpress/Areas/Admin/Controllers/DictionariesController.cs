@@ -124,6 +124,7 @@ namespace SmartExpress.Areas.Admin.Controllers
             UnitOfWork.DictionaryRepository.Update(new Dictionary
             {
                 ID = model.ID,
+                ParentID = model.ParentID,
                 Caption = model.Caption,
                 DictionaryCode = model.DictionaryCode,
                 IntCode = model.IntCode,
