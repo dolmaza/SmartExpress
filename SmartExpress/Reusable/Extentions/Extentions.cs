@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
-namespace SmartExpress.Admin.Reusable
+namespace SmartExpress.Reusable.Extentions
 {
     public static class Extentions
     {
@@ -61,5 +61,14 @@ namespace SmartExpress.Admin.Reusable
             return date;
         }
 
+        public static string HashPassword(this string str)
+        {
+            return str == null ? null : BCrypt.Net.BCrypt.HashPassword(str);
+        }
+
+        public static bool VerifyPassword(this string hash, string password)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hash);
+        }
     }
 }

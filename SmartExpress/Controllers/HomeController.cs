@@ -1,8 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using SmartExpress.Reusable;
+using System.Web.Mvc;
 
 namespace SmartExpress.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         [Route("", Name = "Home")]
         public ActionResult Index()

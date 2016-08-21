@@ -1,0 +1,33 @@
+﻿@model LoginViewModel
+
+@section HeaderSection{
+    <link href="~/Content/css/login.css" rel="stylesheet" />
+}
+    <section id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <h1>Smart Express - ავტორიზაცია</h1>
+                    <form role="form" action="@Model.SaveUrl" method="post" id="login-form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="email" class="sr-only">ხელშეკრულების №</label>
+                            <input type="text" name="ContractNumber" id="ContractNumber" class="form-control" value="@Model.ContractNumber" autofocus placeholder="ხელშეკრულების №">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">პაროლი</label>
+                            <input type="password" name="Password" id="Password" class="form-control" value="@Model.Password" placeholder="პაროლი">
+                        </div>
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="შესვლა">
+                    </form>
+                    <hr />
+                </div>
+            </div> 
+        </div> 
+    </section>
+
+@section FooterSection {
+    <script src="~/Content/plugins/jquery/masked-input.js"></script>
+    <script>
+        $("#ContractNumber").mask("99-999");
+    </script>
+}

@@ -3,6 +3,7 @@ using Core.Properties;
 using Core.Utilities;
 using SmartExpress.Admin.Models;
 using SmartExpress.Admin.Reusable;
+using SmartExpress.Reusable.Extentions;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -62,7 +63,7 @@ namespace SmartExpress.Areas.Admin.Controllers
             var user = new User
             {
                 IDNumber = model.IDNumber,
-                Password = model.Password,
+                Password = model.Password.HashPassword(),
                 Address = model.Address,
                 CompanyName = model.CompanyName,
                 ContractNumber = model.ContractNumber,
@@ -137,7 +138,7 @@ namespace SmartExpress.Areas.Admin.Controllers
             {
                 ID = model.ID,
                 IDNumber = model.IDNumber,
-                Password = model.Password,
+                Password = model.Password.HashPassword(),
                 Address = model.Address,
                 CompanyName = model.CompanyName,
                 ContractNumber = model.ContractNumber,

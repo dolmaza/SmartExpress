@@ -80,3 +80,6 @@ D:\Projects\MVC Projectes\SmartExpress\SmartExpress\obj\Debug\SmartExpress.dll
 D:\Projects\MVC Projectes\SmartExpress\SmartExpress\obj\Debug\SmartExpress.pdb
 D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\EPPlus.dll
 D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\EPPlus.xml
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\BCrypt.Net.dll
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\BCrypt.Net.pdb
+D:\Projects\MVC Projectes\SmartExpress\SmartExpress\bin\BCrypt.Net.xml

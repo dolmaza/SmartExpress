@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var layoutViewModel = ViewBag.LayoutViewModel as LayoutViewModel;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -11,6 +15,8 @@
     <link href="~/Content/css/landing-page.css" rel="stylesheet" />
     <link href="~/Content/plugins/font-awsome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    @RenderSection("HeaderSection", false)
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
@@ -22,46 +28,34 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">Smart Express</a>
+                <a class="navbar-brand topnav" href="@layoutViewModel.HomeUrl">Smart Express</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#about">ჩვენ შესახებ</a>
-                    </li>
-                    <li>
-                        <a href="#services">ტარიფები</a>
-                    </li>
-                    <li>
-                        <a href="#contact">შესვლა</a>
-                    </li>
+                    
+                    @if (layoutViewModel.IsUserAuthorized)
+                    {
+                        <li>
+                            <a href="@layoutViewModel.LogoutUrl">გასვლა</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="#about">ჩვენ შესახებ</a>
+                        </li>
+                        <li>
+                            <a href="#services">ტარიფები</a>
+                        </li>
+                        <li>
+                            <a href="@layoutViewModel.LoginUrl">შესვლა</a>
+                        </li>
+                    }
+                    
                 </ul>
             </div>
         </div>
     </nav>
-
-    <a name="about"></a>
-    <div class="intro-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="intro-message">
-                        <h1>Smart Express</h1>
-                        <h3>სწრაფი საფოსტო მომსახურება</h3>
-                        <hr class="intro-divider">
-                        <ul class="list-inline intro-social-buttons">
-                            <li>
-                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-car fa-fw"></i> <span class="network-name"> კურიერის გამოძახება</span></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-money fa-fw"></i> <span class="network-name"> ტარიფები</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @RenderBody()
 
@@ -76,5 +70,7 @@
     </footer>
     <script src="~/Content/plugins/jquery/jquery-2.2.1.min.js"></script>
     <script src="~/Content/plugins/bootstrap/bootstrap.min.js"></script>
+
+    @RenderSection("FooterSection", false)
 </body>
 </html>

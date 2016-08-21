@@ -31,7 +31,6 @@ D:\Projects\MVC Projectes\SmartExpress\Core\bin\Debug\EntityFramework.dll
 D:\Projects\MVC Projectes\SmartExpress\Core\bin\Debug\EntityFramework.SqlServer.dll
 D:\Projects\MVC Projectes\SmartExpress\Core\bin\Debug\EntityFramework.xml
 D:\Projects\MVC Projectes\SmartExpress\Core\bin\Debug\EntityFramework.SqlServer.xml
-D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
 D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.Migrations.InitialDatabase.resources
 D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.Migrations.MakeIsVisibleColumnNullableInDictionaryTable.resources
 D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.Migrations.MakeParentIDColumnNullableInDictionaryTable.resources
@@ -50,3 +49,4 @@ D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.Properties.Resources.
 D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.csproj.GenerateResource.Cache
 D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.dll
 D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.pdb
+D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
