@@ -21,6 +21,10 @@ h6 {
     font-weight: 700;
 }
 
+table td {
+    font-weight: 100;
+}
+
 .topnav {
     font-size: 14px; 
 }
@@ -167,4 +171,8 @@ footer {
 
 p.copyright {
     margin: 15px 0 0;
+}
+
+.user-invoices {
+    margin-top: 90px;
 }

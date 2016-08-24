@@ -1,0 +1,63 @@
+﻿@model UserInvoiceDetailsViewModel
+@{
+    ViewBag.Title = "ზედნადების დეტალური ინფორმაცია";
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+@section HeaderSection {
+
+    <link href="~/Content/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    @*<link href="~/Content/plugins/dataTables/dataTables.responsive.css" rel="stylesheet" />*@
+}
+
+
+
+
+<section class="user-invoice-details">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                ზედნადებების ისტორია
+            </div>
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table table-hover" id="invoice-details-grid">
+                        <thead>
+                            <tr>
+                                <th style="width: 200px;">მიმღების სახელი</th>
+                                <th style="width: 200px;">მიღების გვარი</th>
+                                <th style="width: 250px;">მიღების მისამართი</th>
+                                <th style="width: 200px;">ჩაბარების თარიღი</th>
+                                <th style="width: 200px;">ვინ მიიღო</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var invoice in Model.UserInvoiceDetailObjects)
+                            {
+                                <tr>
+                                    <td>@invoice.ReceiverFirstname</td>
+                                    <td>@invoice.ReceiverLastname</td>
+                                    <td>@invoice.ReceiverAddress</td>
+                                    <td>@invoice.DeliveryDate</td>
+                                    <td>@invoice.WhoReceived</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section FooterSection {
+    <script src="~/Content/plugins/dataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/plugins/dataTables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $('#invoice-details-grid').DataTable({});
+        });
+    </script>
+}

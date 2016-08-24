@@ -39,7 +39,7 @@ namespace SmartExpress.Areas.Admin.Controllers
                     InvoiceNumber = i.InvoiceNumber,
                     CompanyName = i.CompanyName,
                     SenderAddress = i.SenderAddress,
-                    ReceiveDate = i.ReceiveDate?.ToString(Resources.CustomDateFormat),
+                    ReceiveDate = i.ReceiveDate?.ToShortDateString(),
                     MessageMode = i.MessageMode.Caption,
                     Quantity = $"{i.Quantity:0.}",
                     Weigth = $"{i.Weigth:0.00}",

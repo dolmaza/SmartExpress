@@ -9,6 +9,8 @@ namespace Core.Repositories
     {
         IEnumerable<Invoice> GetInvoicesForExportExcel(DateTime? dateFrom, DateTime? dateTo);
         IEnumerable<Invoice> GetInvociesByReceiveDate(DateTime? dateFrom, DateTime? dateTo);
+        IEnumerable<Invoice> GetUserInvoices(int? userID);
+        IEnumerable<Invoice> GetUserInvoiceDetails(int? userID, string invoiceNumber);
     }
 
     public class InvoiceRepository : Repository<Invoice>, IInvoiceRepository
@@ -40,6 +42,43 @@ namespace Core.Repositories
                         .Include(i => i.Payer)
                         .Include(i => i.FormOfPayment)
                         .Include(i => i.User).ToList();
+        }
+
+        public IEnumerable<Invoice> GetUserInvoices(int? userID)
+        {
+            return GetAll()
+                .Where(i => i.User.ID == userID && i.ParentID == null)
+                .Include(i => i.User)
+                .Include(i => i.MessageMode)
+                .ToList()
+                .Select(i => new Invoice
+                {
+                    ID = i.ID,
+                    InvoiceNumber = i.InvoiceNumber,
+                    ReceiveDate = i.ReceiveDate,
+                    MessageModeID = i.MessageModeID,
+                    MessageMode = i.MessageMode
+
+                })
+                .ToList();
+        }
+
+        public IEnumerable<Invoice> GetUserInvoiceDetails(int? userID, string invoiceNumber)
+        {
+            return GetAll()
+                .Where(i => i.User.ID == userID && i.InvoiceNumber == invoiceNumber)
+                .ToList()
+                .Select(i => new Invoice
+                {
+                    ID = i.ID,
+                    ReceiverFirstname = i.ReceiverFirstname,
+                    ReceiverLastname = i.ReceiverLastname,
+                    ReceiverAddress = i.ReceiverAddress,
+                    DeliveryDate = i.DeliveryDate,
+                    WhoReceived = i.WhoReceived
+
+                })
+                .ToList();
         }
     }
 }

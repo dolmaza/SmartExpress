@@ -1,0 +1,34 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/font-awsome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/landing-page.css" rel="stylesheet" />
+    @RenderSection("HeaderSection", false)
+</head>
+<body>
+    
+    <div class="modal-header">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="modal-body">
+        @RenderBody()
+    </div>
+    <div class="modal-footer">
+    @RenderSection("ModalFooterSection", false)
+    </div>
+    <script src="~/Content/plugins/jquery/jquery-2.2.1.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Content/plugins/jquery/jquery.numeric-input.js"></script>
+
+    @RenderSection("FooterSection", false)
+</body>
+</html>

@@ -3,6 +3,7 @@ using SmartExpress.Models;
 using SmartExpress.Reusable;
 using SmartExpress.Reusable.Extentions;
 using SmartExpress.Reusable.FilterAttributes;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace SmartExpress.Controllers
@@ -60,7 +61,36 @@ namespace SmartExpress.Controllers
         [Route("account/{ID}/invoices", Name = "UserInvoices")]
         public ActionResult UserInvoices(int? ID)
         {
-            return View();
+            var model = new UserInvoicesViewModel()
+            {
+                UserInvoceObjects = UnitOfWork.InvoiceRepository.GetUserInvoices(ID).Select(i => new UserInvoicesViewModel.UserInvoiceObject
+                {
+                    ID = i.ID,
+                    InvoiceNumber = i.InvoiceNumber,
+                    MessageModeCaption = i.MessageMode.Caption,
+                    ReceiverDate = i.ReceiveDate?.ToShortDateString(),
+                    DetailsUrl = Url.RouteUrl("UserInvoiceDetails", new { ID = ID, invoiceNumber = i.InvoiceNumber })
+                }).ToList()
+            };
+            return View(model);
+        }
+
+        [Route("account/{ID}/invoices/{invoiceNumber}details", Name = "UserInvoiceDetails")]
+        public ActionResult UserInvoiceDetails(int? ID, string invoiceNumber)
+        {
+            var model = new UserInvoiceDetailsViewModel
+            {
+                UserInvoiceDetailObjects = UnitOfWork.InvoiceRepository.GetUserInvoiceDetails(ID, invoiceNumber).Select(i => new UserInvoiceDetailsViewModel.UserInvoiceDetailObject
+                {
+                    ID = i.ID,
+                    ReceiverFirstname = i.ReceiverFirstname,
+                    ReceiverLastname = i.ReceiverLastname,
+                    ReceiverAddress = i.ReceiverAddress,
+                    DeliveryDate = i.DeliveryDate?.ToShortDateString(),
+                    WhoReceived = i.WhoReceived
+                }).ToList()
+            };
+            return View(model);
         }
 
         #endregion

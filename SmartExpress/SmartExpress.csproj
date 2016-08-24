@@ -220,6 +220,7 @@
     <Compile Include="Areas\Admin\Models\DictionaryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LayoutViewModel.cs" />
     <Compile Include="Areas\Admin\Reusable\BaseClasses.cs" />
+    <Compile Include="Models\UserInvoicesViewModel.cs" />
     <Compile Include="Reusable\Extentions\Extentions.cs" />
     <Compile Include="Areas\Admin\Reusable\FilterAttributes\BeforePageLoads.cs" />
     <Compile Include="Areas\Admin\Reusable\Helpers\InvoiceHelper.cs" />
@@ -271,6 +272,8 @@
     <Content Include="Areas\Admin\Views\Dictionaries\CreateEditDictionary.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UserInvoices.cshtml" />
+    <Content Include="Views\Shared\_PopupLayout.cshtml" />
+    <Content Include="Views\Account\UserInvoiceDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

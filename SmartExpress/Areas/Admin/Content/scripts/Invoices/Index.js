@@ -94,7 +94,7 @@ function initTreeGrid(invoicesJson) {
         columns: [
 
 
-            { text: "ზედნ. №", dataField: "InvoiceNumber", width: 90 },
+            { text: "ზედნ. №", dataField: "InvoiceNumber", width: 100 },
             {
                 text: "<i class='fa fa-cog'></i>", width: 100, cellsAlign: 'center', align: "center", columnType: 'none', editable: false, sortable: false, dataField: "ParentID", cellsRenderer: function (id, column, parentID) {
                     // render custom column.
