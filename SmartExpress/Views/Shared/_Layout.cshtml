@@ -1,5 +1,6 @@
 ﻿@{ 
     var layoutViewModel = ViewBag.LayoutViewModel as LayoutViewModel;
+    layoutViewModel = layoutViewModel ?? new LayoutViewModel();
 }
 
 <!DOCTYPE html>
@@ -32,9 +33,15 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    
+
                     @if (layoutViewModel.IsUserAuthorized)
                     {
+                        if (layoutViewModel.IsAdmin)
+                        {
+                            <li>
+                                <a href="@layoutViewModel.DashboardUrl">ადმინ პანელი</a>
+                            </li>
+                        }
                         <li>
                             <a href="@layoutViewModel.LogoutUrl">გასვლა</a>
                         </li>
@@ -42,16 +49,16 @@
                     else
                     {
                         <li>
-                            <a href="#about">ჩვენ შესახებ</a>
+                            <a href="#">ჩვენ შესახებ</a>
                         </li>
                         <li>
-                            <a href="#services">ტარიფები</a>
+                            <a href="#">ტარიფები</a>
                         </li>
                         <li>
                             <a href="@layoutViewModel.LoginUrl">შესვლა</a>
                         </li>
                     }
-                    
+
                 </ul>
             </div>
         </div>

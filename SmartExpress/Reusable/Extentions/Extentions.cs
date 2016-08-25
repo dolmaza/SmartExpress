@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
@@ -26,13 +27,11 @@ namespace SmartExpress.Reusable.Extentions
             decimal? dcm = null;
             if (str != null)
             {
-                if (str.Contains("."))
+                if (str.Contains(","))
                 {
-                    str = str.Replace(".", ",");
-
+                    str = str.Replace(",", ".");
                 }
-
-                dcm = decimal.Parse(str);
+                dcm = decimal.Parse(str, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
             }
             return dcm;
         }

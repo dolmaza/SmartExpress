@@ -34,7 +34,9 @@ namespace SmartExpress.Reusable.FilterAttributes
             model.LoginUrl = controller.Url.RouteUrl("Login");
             model.LogoutUrl = controller.Url.RouteUrl("Logout");
             model.HomeUrl = controller.UserItem == null ? controller.Url.RouteUrl("Home") : controller.Url.RouteUrl("UserInvoices", new { ID = controller.UserItem?.ID });
+            model.DashboardUrl = controller.Url.RouteUrl("Dashboard");
             model.IsUserAuthorized = controller.UserItem != null;
+            model.IsAdmin = controller.UserItem?.Role.IntCode == 1;
         }
     }
 }
