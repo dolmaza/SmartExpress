@@ -3,7 +3,7 @@ using SmartExpress.Admin.Reusable;
 
 namespace SmartExpress.Admin.Models
 {
-    public class DictionaryViewModel
+    public class DictionaryViewModel : BaseViewModel
     {
         public string DictionaryCreateUrl { get; set; }
         public string ConfirmDeleteText { get; set; } = Resources.TextConfirmDelete;

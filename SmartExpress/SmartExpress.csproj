@@ -121,6 +121,7 @@
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\landing-page.css" />
     <Content Include="Content\Images\intro-bg.jpg" />
+    <Content Include="Content\plugins\bootbox\bootbox.min.js" />
     <Content Include="Content\plugins\checkbox\checkbox-script.js" />
     <Content Include="Content\plugins\fancybox\FancyMethods.js" />
     <Content Include="Content\plugins\fonts\glyphicons-halflings-regular.svg" />
@@ -199,6 +200,9 @@
     <Content Include="Content\plugins\jqxTreeGrid\jqxscrollbar.js" />
     <Content Include="Content\plugins\jqxTreeGrid\jqxtooltip.js" />
     <Content Include="Content\plugins\jqxTreeGrid\jqxtreegrid.js" />
+    <Content Include="Content\plugins\loader\img\ajax-loader.gif" />
+    <Content Include="Content\plugins\loader\loader.css" />
+    <Content Include="Content\plugins\loader\loader.js" />
     <Content Include="Content\plugins\metisMenu\metisMenu.min.css" />
     <Content Include="Content\plugins\metisMenu\metisMenu.min.js" />
     <Content Include="Content\plugins\sb-admin\sb-admin-2.css" />

@@ -31,9 +31,10 @@
             },
             dataType: "json",
             beforeSend: function() {
-                //$("input, select").val("");
+                AjaxLoader.ShowLoader();
             },
             success: function (response) {
+                AjaxLoader.HideLoader();
                 if (response.IsSuccess) {
                     var redirectUrl = response.Data.RedirectUrl;
                     
@@ -52,6 +53,9 @@
                         IsError: true
                     }).ShowMessage();
                 }
+            },
+            error: function (response) {
+                bootbox.alert(abort);
             }
         });
 

@@ -24,12 +24,19 @@
                 IsVisible: isVisible
             },
             dataType: "json",
-            success: function(response) {
+            beforeSend: function () {
+                AjaxLoader.ShowLoader();
+            },
+            success: function (response) {
+                AjaxLoader.HideLoader();
                 if (response.IsSuccess) {
                     window.parent.location.reload();
                 } else {
-                    alert(response.Data.Message);
+                    bootbox.alert(response.Data.Message);
                 }
+            },
+            error: function(response) {
+                bootbox.alert(abort);
             }
         });
 

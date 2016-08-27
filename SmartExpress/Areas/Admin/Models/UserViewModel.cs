@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SmartExpress.Admin.Models
 {
-    public class UserViewModel
+    public class UserViewModel : BaseViewModel
     {
         public string UserCreateUrl { get; set; }
         public string ConfirmDeleteText { get; set; } = Resources.TextConfirmDelete;

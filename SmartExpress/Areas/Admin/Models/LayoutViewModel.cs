@@ -1,8 +1,9 @@
 ﻿using Core.Utilities;
+using SmartExpress.Admin.Reusable;
 
 namespace SmartExpress.Admin.Models
 {
-    public class LayoutViewModel
+    public class LayoutViewModel : BaseViewModel
     {
         public string HomeUrl { get; set; }
         public string LogoutUrl { get; set; }

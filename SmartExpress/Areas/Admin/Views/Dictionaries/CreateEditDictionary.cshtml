@@ -4,6 +4,10 @@
     Layout = "~/Areas/Admin/Views/Shared/_PopupLayout.cshtml";
 }
 
+@section HeaderSection {
+    
+    <link href="~/Content/plugins/loader/loader.css" rel="stylesheet" />
+}
 
 <div class="row">
     <div class="col-xs-6">
@@ -53,11 +57,14 @@
 @section ModalFooterSection{
     <a href="@Model.SaveUrl" class="btn btn-success" id="Save"><i class="fa fa-floppy-o"></i> დამახსოვრება</a>
 }
+
 @section FooterSection {
     <script>
         var parentID = @Model.DictionaryObject.ParentID;
     </script>
+    <script src="~/Content/plugins/bootbox/bootbox.min.js"></script>
     <script src="~/Content/plugins/jquery/jquery.numeric-input.js"></script>
     <script src="~/Content/plugins/checkbox/checkbox-script.js"></script>
+    <script src="~/Content/plugins/loader/loader.js"></script>
     <script src="~/Areas/Admin/Content/scripts/Dictionaries/CreateEditDictionary.js"></script>
 }

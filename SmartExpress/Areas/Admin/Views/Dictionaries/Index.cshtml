@@ -57,7 +57,9 @@
     <script src="~/Content/plugins/jqxTreeGrid/jqxtreegrid.js"></script>
     <script src="~/Content/plugins/fancybox/jquery.fancybox.js"></script>
     <script src="~/Content/plugins/fancybox/FancyMethods.js"></script>
+    <script src="~/Content/plugins/bootbox/bootbox.min.js"></script>
     <script>
+        var abort = "@Model.Abort";
         var dictionaries = @Html.Raw(Model.DictionariesJson);
         var confirmDeleteText = "@Model.ConfirmDeleteText";
     </script>

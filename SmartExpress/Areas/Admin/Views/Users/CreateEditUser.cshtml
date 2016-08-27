@@ -3,6 +3,11 @@
     ViewBag.Title = Model.Title;
 }
 
+@section HeaderSection {
+    
+    <link href="~/Content/plugins/loader/loader.css" rel="stylesheet" />
+}
+
 @section Breadcrumb {
     <div class="row">
         <div class="col-md-12">
@@ -114,8 +119,12 @@
 </div>
 
 @section FooterSection {
+    <script>
+        var abort = "@Model.Abort";
+    </script>
     
     <script src="~/Content/plugins/jquery/masked-input.js"></script>
     <script src="~/Content/plugins/successErrorMessage.js"></script>
+<script src="~/Content/plugins/loader/loader.js"></script>
     <script src="~/Areas/Admin/Content/scripts/Users/CreateEditUser.js"></script>
 }

@@ -1,5 +1,6 @@
 ﻿using Core;
 using Core.DB;
+using Core.Properties;
 using Core.UnitOfWork;
 using Core.Utilities;
 using SmartExpress.Admin.Models;
@@ -55,6 +56,8 @@ namespace SmartExpress.Admin.Reusable
     public class BaseViewModel
     {
         public IUnitOfWork UnitOfWork { get; set; }
+
+        public string Abort { get; set; } = Resources.Abort;
 
         public BaseViewModel()
         {

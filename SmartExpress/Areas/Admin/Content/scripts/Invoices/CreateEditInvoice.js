@@ -17,7 +17,11 @@
                 ID: userID
             },
             dataType: "json",
-            success: function(response) {
+            beforeSend: function () {
+                AjaxLoader.ShowLoader();
+            },
+            success: function (response) {
+                AjaxLoader.HideLoader();
                 if (response.IsSuccess) {
 
                     if (response.Data.Sender == null) {
@@ -35,8 +39,14 @@
                     }
                     
                 } else {
-                    alert(response.Data.Message);
+                    successErrorMessage.Init({
+                        Message: response.Data.Message,
+                        IsError: true
+                    }).ShowMessage();
                 }
+            },
+            error: function(response) {
+                bootbox.alert(abort);
             }
         });
     });
@@ -105,7 +115,11 @@
 
             },
             dataType: "json",
-            success: function(response) {
+            beforeSend: function () {
+                AjaxLoader.ShowLoader();
+            },
+            success: function (response) {
+                AjaxLoader.HideLoader();
                 if (response.IsSuccess) {
                     if (response.Data.RedirectUrl == null) {
                         successErrorMessage.Init({
@@ -121,6 +135,9 @@
                         IsError: true
                     }).ShowMessage();
                 }
+            },
+            error: function (response) {
+                bootbox.alert(abort);
             }
         });
         

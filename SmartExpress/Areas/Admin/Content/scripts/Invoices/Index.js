@@ -28,20 +28,26 @@
                 dateFrom: from
             },
             dataType: "json",
-            success: function(response) {
+            beforeSend: function () {
+                AjaxLoader.ShowLoader();
+            },
+            success: function (response) {
+                AjaxLoader.HideLoader();
                 if (response.IsSuccess) {
                     initTreeGrid(response.Data.InvoicesJson);
                 } else {
-                    alert("error");
+                    successErrorMessage.Init({
+                        Message: abort,
+                        IsError: true
+                    }).ShowMessage();
                 }
             }
         });
     });
-    
 
     $("#treeGrid").on("click", ".invoice-delete", function() {
         return confirm(confirmDeleteText);
-    })
+    });
 
 });
 

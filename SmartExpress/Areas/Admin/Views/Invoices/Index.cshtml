@@ -7,6 +7,7 @@
 
     <link href="~/Content/plugins/jqxTreeGrid/jqx.base.css" rel="stylesheet" />
     <link href="~/Content/plugins/fancybox/jquery.fancybox.css" rel="stylesheet" />
+    <link href="~/Content/plugins/loader/loader.css" rel="stylesheet" />
     <link href="~/Content/plugins/jquery-ui-1.12.0/jquery-ui.min.css" rel="stylesheet" />
 }
 
@@ -28,23 +29,26 @@
             <div class="row">
                 <div class="col-md-4 ab-btn">
                     <a href="@Model.InvoiceCreateUrl" class="btn btn-default"><i class="fa fa-plus"></i> დამატება</a>
-                    <a href="@Model.InvoicesExportToExcelUrl" class="btn btn-success"><i class="fa fa-download"></i> Excel</a>
+                    <button form="export-to-excel" type="submit" id="download-invoices-excel" class="btn btn-success"><i class="fa fa-download"></i> Excel</button>
                     @*<label class="btn btn-success btn-file">
                         <i class="fa fa-upload"></i> Excel <input type="file" style="display: none;">
                     </label>*@
                 </div>
-                <div class="col-md-2">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-calendar"></i></span>
-                        <input type="text" class="form-control calendar" id="From" aria-describedby="basic-addon1">
+                <form action="@Model.InvoicesExportToExcelUrl" method="post" id="export-to-excel">
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                            <input type="text" class="form-control calendar" name="dateFrom" id="From" aria-describedby="basic-addon1">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-calendar"></i></span>
-                        <input type="text" class="form-control calendar" id="To" aria-describedby="basic-addon2">
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon2"><i class="fa fa-calendar"></i></span>
+                            <input type="text" class="form-control calendar" name="dateTo" id="To" aria-describedby="basic-addon2">
+                        </div>
                     </div>
-                </div>
+                </form>
+                
                 <div class="col-md-2">
                     <button class="btn btn-warning" disabled="disabled" id="ClearDates"><i class="fa fa-times"></i> გასუფთავება</button>
                 </div>
@@ -81,8 +85,11 @@
     <script src="~/Content/plugins/jqxTreeGrid/jqxtooltip.js"></script>
     <script src="~/Content/plugins/jqxTreeGrid/jqxinput.js"></script>
     <script src="~/Content/plugins/jqxTreeGrid/jqxtreegrid.js"></script>
+    <script src="~/Content/plugins/successErrorMessage.js"></script>
+    <script src="~/Content/plugins/bootbox/bootbox.min.js"></script>
     <script src="~/Content/plugins/fancybox/jquery.fancybox.js"></script>
     <script src="~/Content/plugins/fancybox/FancyMethods.js"></script>
+    <script src="~/Content/plugins/loader/loader.js"></script>
     <script src="~/Content/plugins/jquery-ui-1.12.0/jquery-ui.min.js"></script>
     <script>
         var InvoicesByReceiveDateUrl = "@Model.InvoicesByReceiveDateUrl";
@@ -90,7 +97,7 @@
         var confirmDeleteText = "@Model.ConfirmDeleteText";
         var customDateFormatJs = "@Model.CustomDateFormatJs";
         var customDateFormat = "@Model.CustomDateFormat";
-
+        var abort = "@Model.Abort";
     </script>
     <script src="~/Areas/Admin/Content/scripts/Invoices/Index.js"></script>
 }

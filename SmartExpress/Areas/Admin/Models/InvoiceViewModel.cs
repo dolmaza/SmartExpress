@@ -1,11 +1,12 @@
 ﻿using Core.Properties;
+using SmartExpress.Admin.Reusable;
 using SmartExpress.Reusable.Utilities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartExpress.Admin.Models
 {
-    public class InvoiceViewModel
+    public class InvoiceViewModel : BaseViewModel
     {
         public string InvoiceCreateUrl { get; set; }
         public string InvoicesByReceiveDateUrl { get; set; }
@@ -63,7 +64,7 @@ namespace SmartExpress.Admin.Models
 
     }
 
-    public class CreateEditInvoiceViewModel
+    public class CreateEditInvoiceViewModel : BaseViewModel
     {
         public string SaveUrl { get; set; }
         public string InvoicesUrl { get; set; }
