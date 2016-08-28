@@ -1,6 +1,7 @@
 ﻿using Core;
 using Core.Properties;
 using Core.Utilities;
+using Core.Validation;
 using OfficeOpenXml;
 using SmartExpress.Admin.Models;
 using SmartExpress.Admin.Reusable;
@@ -57,7 +58,7 @@ namespace SmartExpress.Areas.Admin.Controllers
         [Route("invoices/by-receive-date", Name = "InvoicesByReceiveDate")]
         public ActionResult InvoicesByReseiveDate(DateTime? dateFrom, DateTime? dateTo)
         {
-            var AR = new AjaxResponse();
+            var ajaxResponse = new AjaxResponse();
             var invoicesJson = UnitOfWork.InvoiceRepository.GetInvociesByReceiveDate(dateFrom, dateTo)
                 .Select(i => new InvoiceObject
                 {
@@ -77,12 +78,12 @@ namespace SmartExpress.Areas.Admin.Controllers
                     ReceiverAddress = i.ReceiverAddress
                 }).ToJson();
 
-            AR.IsSuccess = true;
-            AR.Data = new
+            ajaxResponse.IsSuccess = true;
+            ajaxResponse.Data = new
             {
                 InvoicesJson = invoicesJson
             };
-            return Json(AR);
+            return Json(ajaxResponse);
         }
 
         [Route("invoices/create", Name = "InvoicesCreate")]
@@ -154,67 +155,79 @@ namespace SmartExpress.Areas.Admin.Controllers
         [Route("invoices/{ParentID}/create")]
         public ActionResult CreateInvoice(InvoiceObject model)
         {
-            var AR = new AjaxResponse();
+            var ajaxResponse = new AjaxResponse();
+            var errors = Validation.ValidateCreateEditInvoiceForm(model.InvoiceNumber);
 
-            var invoice = new Invoice
+            if (errors.Count == 0)
             {
-                ParentID = model.ParentID,
-                InvoiceNumber = model.InvoiceNumber,
-                MessageTypeID = model.MessageTypeID,
-                ReceiveDate = model.ReceiveDate.ToDateTime(),
-                DeliveryDate = model.DeliveryDate.ToDateTime(),
-                UnitPrice = model.UnitPrice.ToDecimal(),
-                TotalPrice = model.TotalPrice.ToDecimal(),
-                Direction = model.Direction,
-                MessageModeID = model.MessageModeID,
-                PayerID = model.PayerID,
-                FormOfPaymentID = model.FormOfPaymentID,
-                Quantity = model.Quantity.ToDecimal(),
-                Weigth = model.Weigth.ToDecimal(),
-
-                UserID = model.UserID,
-                CompanyName = model.CompanyName,
-                SenderFirstname = model.SenderFirstname,
-                SenderLastname = model.SenderLastname,
-                SenderTelephoneNumber = model.SenderTelephoneNumber,
-                SenderAddress = model.SenderAddress,
-
-                ReceiverFirstname = model.ReceiverFirstname,
-                ReceiverLastname = model.ReceiverLastname,
-                ReceiverTelephoneNumber = model.ReceiverTelephoneNumber,
-                ReceiverAddress = model.ReceiverAddress,
-                WhoReceived = model.WhoReceived,
-                WhoReceivedAdditional = model.WhoReceivedAdditional,
-                CreateTime = DateTime.Now
-
-            };
-
-            UnitOfWork.InvoiceRepository.Add(invoice);
-
-            if (UnitOfWork.InvoiceRepository.IsError)
-            {
-                AR.Data = new
+                var invoice = new Invoice
                 {
-                    Message = Resources.Abort
+                    ParentID = model.ParentID,
+                    InvoiceNumber = model.InvoiceNumber,
+                    MessageTypeID = model.MessageTypeID,
+                    ReceiveDate = model.ReceiveDate.ToDateTime(),
+                    DeliveryDate = model.DeliveryDate.ToDateTime(),
+                    UnitPrice = model.UnitPrice.ToDecimal(),
+                    TotalPrice = model.TotalPrice.ToDecimal(),
+                    Direction = model.Direction,
+                    MessageModeID = model.MessageModeID,
+                    PayerID = model.PayerID,
+                    FormOfPaymentID = model.FormOfPaymentID,
+                    Quantity = model.Quantity.ToDecimal(),
+                    Weigth = model.Weigth.ToDecimal(),
+
+                    UserID = model.UserID,
+                    CompanyName = model.CompanyName,
+                    SenderFirstname = model.SenderFirstname,
+                    SenderLastname = model.SenderLastname,
+                    SenderTelephoneNumber = model.SenderTelephoneNumber,
+                    SenderAddress = model.SenderAddress,
+
+                    ReceiverFirstname = model.ReceiverFirstname,
+                    ReceiverLastname = model.ReceiverLastname,
+                    ReceiverTelephoneNumber = model.ReceiverTelephoneNumber,
+                    ReceiverAddress = model.ReceiverAddress,
+                    WhoReceived = model.WhoReceived,
+                    WhoReceivedAdditional = model.WhoReceivedAdditional,
+                    CreateTime = DateTime.Now
+
                 };
+
+                UnitOfWork.InvoiceRepository.Add(invoice);
+
+                if (UnitOfWork.InvoiceRepository.IsError)
+                {
+                    ajaxResponse.Data = new
+                    {
+                        Message = Resources.Abort
+                    };
+                }
+                else
+                {
+                    ajaxResponse.IsSuccess = true;
+                    ajaxResponse.Data = new
+                    {
+                        RedirectUrl = Url.RouteUrl("InvoicesEdit", new { ID = invoice.ID })
+                    };
+                }
+
             }
             else
             {
-                AR.IsSuccess = true;
-                AR.Data = new
+                ajaxResponse.Data = new
                 {
-                    RedirectUrl = Url.RouteUrl("InvoicesEdit", new { ID = invoice.ID })
+                    ErrorsJson = errors.ToJson()
                 };
             }
 
-            return Json(AR);
+            return Json(ajaxResponse);
         }
 
         [HttpPost]
         [Route("invoices/get-sender-information", Name = "GetSenderInformation")]
         public ActionResult GetSenderInformation(int? ID)
         {
-            var AR = new AjaxResponse();
+            var ajaxResponse = new AjaxResponse();
             var user = UnitOfWork.UserRepository.Get(ID);
 
             if (user == null)
@@ -223,14 +236,14 @@ namespace SmartExpress.Areas.Admin.Controllers
             }
             else
             {
-                AR.IsSuccess = true;
-                AR.Data = new
+                ajaxResponse.IsSuccess = true;
+                ajaxResponse.Data = new
                 {
                     Sender = user,
                     IsSenderObjectNull = user.ID == null
                 };
 
-                return Json(AR);
+                return Json(ajaxResponse);
             }
 
         }
@@ -324,58 +337,70 @@ namespace SmartExpress.Areas.Admin.Controllers
         [Route("invoices/{ID}/edit")]
         public ActionResult EditInvoice(InvoiceObject model)
         {
-            var AR = new AjaxResponse();
+            var ajaxResponse = new AjaxResponse();
+            var errors = Validation.ValidateCreateEditInvoiceForm(model.InvoiceNumber);
 
-            UnitOfWork.InvoiceRepository.Update(new Invoice
+            if (errors.Count == 0)
             {
-                ID = model.ID,
-                ParentID = model.ParentID,
-                InvoiceNumber = model.InvoiceNumber,
-                MessageTypeID = model.MessageTypeID,
-                ReceiveDate = model.ReceiveDate.ToDateTime(),
-                DeliveryDate = model.DeliveryDate.ToDateTime(),
-                UnitPrice = model.UnitPrice.ToDecimal(),
-                TotalPrice = model.TotalPrice.ToDecimal(),
-                Direction = model.Direction,
-                MessageModeID = model.MessageModeID,
-                PayerID = model.PayerID,
-                FormOfPaymentID = model.FormOfPaymentID,
-                Quantity = model.Quantity.ToDecimal(),
-                Weigth = model.Weigth.ToDecimal(),
-
-                UserID = model.UserID,
-                CompanyName = model.CompanyName,
-                SenderFirstname = model.SenderFirstname,
-                SenderLastname = model.SenderLastname,
-                SenderTelephoneNumber = model.SenderTelephoneNumber,
-                SenderAddress = model.SenderAddress,
-
-                ReceiverFirstname = model.ReceiverFirstname,
-                ReceiverLastname = model.ReceiverLastname,
-                ReceiverTelephoneNumber = model.ReceiverTelephoneNumber,
-                ReceiverAddress = model.ReceiverAddress,
-                WhoReceived = model.WhoReceived,
-                WhoReceivedAdditional = model.WhoReceivedAdditional,
-                CreateTime = DateTime.Now
-
-            });
-
-            if (UnitOfWork.InvoiceRepository.IsError)
-            {
-                AR.Data = new
+                UnitOfWork.InvoiceRepository.Update(new Invoice
                 {
-                    Message = Resources.Abort
-                };
+                    ID = model.ID,
+                    ParentID = model.ParentID,
+                    InvoiceNumber = model.InvoiceNumber,
+                    MessageTypeID = model.MessageTypeID,
+                    ReceiveDate = model.ReceiveDate.ToDateTime(),
+                    DeliveryDate = model.DeliveryDate.ToDateTime(),
+                    UnitPrice = model.UnitPrice.ToDecimal(),
+                    TotalPrice = model.TotalPrice.ToDecimal(),
+                    Direction = model.Direction,
+                    MessageModeID = model.MessageModeID,
+                    PayerID = model.PayerID,
+                    FormOfPaymentID = model.FormOfPaymentID,
+                    Quantity = model.Quantity.ToDecimal(),
+                    Weigth = model.Weigth.ToDecimal(),
+
+                    UserID = model.UserID,
+                    CompanyName = model.CompanyName,
+                    SenderFirstname = model.SenderFirstname,
+                    SenderLastname = model.SenderLastname,
+                    SenderTelephoneNumber = model.SenderTelephoneNumber,
+                    SenderAddress = model.SenderAddress,
+
+                    ReceiverFirstname = model.ReceiverFirstname,
+                    ReceiverLastname = model.ReceiverLastname,
+                    ReceiverTelephoneNumber = model.ReceiverTelephoneNumber,
+                    ReceiverAddress = model.ReceiverAddress,
+                    WhoReceived = model.WhoReceived,
+                    WhoReceivedAdditional = model.WhoReceivedAdditional,
+                    CreateTime = DateTime.Now
+
+                });
+
+                if (UnitOfWork.InvoiceRepository.IsError)
+                {
+                    ajaxResponse.Data = new
+                    {
+                        Message = Resources.Abort
+                    };
+                }
+                else
+                {
+                    ajaxResponse.IsSuccess = true;
+                    ajaxResponse.Data = new
+                    {
+                        Message = Resources.Success
+                    };
+                }
             }
             else
             {
-                AR.IsSuccess = true;
-                AR.Data = new
+                ajaxResponse.Data = new
                 {
-                    Message = Resources.Success
+                    ErrorsJson = errors.ToJson()
                 };
             }
-            return Json(AR);
+
+            return Json(ajaxResponse);
         }
 
         [Route("invoices/{ID}/delete", Name = "InvoicesDelete")]
@@ -431,6 +456,7 @@ namespace SmartExpress.Areas.Admin.Controllers
             return Redirect(Url.RouteUrl("Invoices"));
         }
 
+        // TODO - Imort invoices from excel file
         [Route("invoices/import-from-excel", Name = "InvoicesImportFromExcel")]
         public ActionResult InvoicesImportFromExcel(HttpPostedFileBase file)
         {
@@ -440,9 +466,9 @@ namespace SmartExpress.Areas.Admin.Controllers
             }
             else
             {
-                string fileName = file.FileName;
-                string fileContentType = file.ContentType;
-                byte[] fileBytes = new byte[file.ContentLength];
+                var fileName = file.FileName;
+                var fileContentType = file.ContentType;
+                var fileBytes = new byte[file.ContentLength];
                 var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
 
                 using (var package = new ExcelPackage(file.InputStream))

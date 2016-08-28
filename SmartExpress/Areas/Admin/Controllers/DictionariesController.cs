@@ -1,6 +1,7 @@
 ﻿using Core;
 using Core.Properties;
 using Core.Utilities;
+using Core.Validation;
 using SmartExpress.Admin.Models;
 using SmartExpress.Admin.Reusable;
 using SmartExpress.Reusable.Extentions;
@@ -57,33 +58,45 @@ namespace SmartExpress.Areas.Admin.Controllers
         [Route("dictionaries/create")]
         public ActionResult CreateDictionary(DictionaryObject model)
         {
-            var AR = new AjaxResponse();
+            var ajaxResponse = new AjaxResponse();
+            var errors = Validation.ValdiateCreateEditDictionaryForm(model.Caption, model.DictionaryCode);
 
-            UnitOfWork.DictionaryRepository.Add(new Dictionary
+            if (errors.Count == 0)
             {
-                ParentID = model.ParentID,
-                Caption = model.Caption,
-                IntCode = model.IntCode,
-                StringCode = model.StringCode,
-                DictionaryCode = model.DictionaryCode,
-                SortVal = model.SortVal,
-                IsVisible = model.IsVisible,
-                CreateTime = DateTime.Now
-            });
-
-            if (UnitOfWork.DictionaryRepository.IsError)
-            {
-                AR.Data = new
+                UnitOfWork.DictionaryRepository.Add(new Dictionary
                 {
-                    Message = Resources.Abort
-                };
+                    ParentID = model.ParentID,
+                    Caption = model.Caption,
+                    IntCode = model.IntCode,
+                    StringCode = model.StringCode,
+                    DictionaryCode = model.DictionaryCode,
+                    SortVal = model.SortVal,
+                    IsVisible = model.IsVisible,
+                    CreateTime = DateTime.Now
+                });
+
+                if (UnitOfWork.DictionaryRepository.IsError)
+                {
+                    ajaxResponse.Data = new
+                    {
+                        Message = Resources.Abort
+                    };
+                }
+                else
+                {
+                    ajaxResponse.IsSuccess = true;
+                }
             }
             else
             {
-                AR.IsSuccess = true;
+                ajaxResponse.Data = new
+                {
+                    ErrorsJson = errors.ToJson()
+                };
             }
 
-            return Json(AR);
+
+            return Json(ajaxResponse);
         }
 
         [Route("dictionaries/{ID}/edit", Name = "DictionariesEdit")]
@@ -121,33 +134,46 @@ namespace SmartExpress.Areas.Admin.Controllers
         [Route("dictionaries/{ID}/edit")]
         public ActionResult EditDictionary(DictionaryObject model)
         {
-            var AR = new AjaxResponse();
-            UnitOfWork.DictionaryRepository.Update(new Dictionary
-            {
-                ID = model.ID,
-                ParentID = model.ParentID,
-                Caption = model.Caption,
-                DictionaryCode = model.DictionaryCode,
-                IntCode = model.IntCode,
-                StringCode = model.StringCode,
-                IsVisible = model.IsVisible,
-                SortVal = model.SortVal
+            var ajaxResponse = new AjaxResponse();
+            var errors = Validation.ValdiateCreateEditDictionaryForm(model.Caption, model.DictionaryCode);
 
-            });
-
-            if (UnitOfWork.DictionaryRepository.IsError)
+            if (errors.Count == 0)
             {
-                AR.Data = new
+                UnitOfWork.DictionaryRepository.Update(new Dictionary
                 {
-                    Message = Resources.Abort
-                };
+                    ID = model.ID,
+                    ParentID = model.ParentID,
+                    Caption = model.Caption,
+                    DictionaryCode = model.DictionaryCode,
+                    IntCode = model.IntCode,
+                    StringCode = model.StringCode,
+                    IsVisible = model.IsVisible,
+                    SortVal = model.SortVal
+
+                });
+
+                if (UnitOfWork.DictionaryRepository.IsError)
+                {
+                    ajaxResponse.Data = new
+                    {
+                        Message = Resources.Abort
+                    };
+                }
+                else
+                {
+                    ajaxResponse.IsSuccess = true;
+                }
+
             }
             else
             {
-                AR.IsSuccess = true;
+                ajaxResponse.Data = new
+                {
+                    ErrorsJson = errors.ToJson()
+                };
             }
 
-            return Json(AR);
+            return Json(ajaxResponse);
         }
 
         [Route("dictionaries/{ID}/delete", Name = "DictionariesDelete")]
