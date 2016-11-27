@@ -1,0 +1,101 @@
+﻿@model DictionariesTreeViewModel
+@Html.DevExpress().TreeList(settings =>
+{
+    settings = Model.GenerateTreeListDefaultSettings(settings);
+    settings.Name = "DictionariesTree";
+
+    settings.KeyFieldName = "ID";
+    settings.ParentFieldName = "ParentID";
+
+    settings.CallbackRouteValues = Model.ListUrl;
+    settings.SettingsEditing.AddNewNodeRouteValues = Model.AddNewUrl;
+    settings.SettingsEditing.UpdateNodeRouteValues = Model.UpdateUrl;
+    settings.SettingsEditing.DeleteNodeRouteValues = Model.DeleteUrl;
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.NewButton.Visible = true;
+    settings.CommandColumn.DeleteButton.Visible = true;
+    settings.CommandColumn.EditButton.Visible = true;
+    settings.CommandColumn.VisibleIndex = 6;
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Caption";
+        column.Caption = "დასახელება";
+        column.ColumnType = MVCxTreeListColumnType.TextBox;
+        column.Width = Unit.Pixel(150);
+        var textboxProperties = column.PropertiesEdit as TextBoxProperties;
+        if (textboxProperties != null)
+        {
+            textboxProperties.ValidationSettings.RequiredField.IsRequired = true;
+        }
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "StringCode";
+        column.Caption = "სტრიქ. კოდი";
+        column.ColumnType = MVCxTreeListColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "IntCode";
+        column.Caption = "რიცხ. კოდი";
+        column.ColumnType = MVCxTreeListColumnType.SpinEdit;
+        column.Width = Unit.Pixel(100);
+        var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+        if (spinEditProperties != null)
+        {
+            spinEditProperties.SpinButtons.Visible = false;
+            spinEditProperties.AllowMouseWheel = false;
+        }
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DictionaryCode";
+        column.Caption = "ცნობარის კოდი";
+        column.ColumnType = MVCxTreeListColumnType.SpinEdit;
+        column.Width = Unit.Pixel(100);
+        var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+        if (spinEditProperties != null)
+        {
+            spinEditProperties.SpinButtons.Visible = false;
+            spinEditProperties.AllowMouseWheel = false;
+        }
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "IsVisible";
+        column.Caption = "გამოჩენა";
+        column.ColumnType = MVCxTreeListColumnType.CheckBox;
+        column.Width = Unit.Pixel(60);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "SortVal";
+        column.Caption = "სორტ. ინდექსი";
+        column.ColumnType = MVCxTreeListColumnType.SpinEdit;
+        column.Width = Unit.Pixel(100);
+        var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+        if (spinEditProperties != null)
+        {
+            spinEditProperties.SpinButtons.Visible = false;
+        }
+    });
+
+    settings.Columns.Add(column => { column.SetEditCellTemplateContent(" "); });
+
+    settings.CellEditorInitialize = (s, e) =>
+    {
+        ASPxEdit editor = (ASPxEdit)e.Editor;
+        editor.ValidationSettings.Display = Display.Dynamic;
+    };
+
+}).Bind(Model.TreeItems).GetHtml()

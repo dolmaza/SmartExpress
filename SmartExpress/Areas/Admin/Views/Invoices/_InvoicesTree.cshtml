@@ -1,0 +1,186 @@
+﻿@model InvoicesTreeViewModel
+@Html.DevExpress().TreeList(settings =>
+{
+    settings = Model.GenerateTreeListDefaultSettings(settings);
+    settings.Name = "InvociesTree";
+    settings.KeyFieldName = "ID";
+    settings.ParentFieldName = "ParentID";
+
+    settings.CallbackRouteValues = Model.ListUrl;
+    settings.SettingsEditing.DeleteNodeRouteValues = Model.DeleteUrl;
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.DeleteButton.Visible = true;
+    settings.CommandColumn.VisibleIndex = 3;
+    settings.CommandColumn.Width = Unit.Pixel(40);
+
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "InvoiceNumber";
+        column.Caption = "ზედნ. №";
+        column.ColumnType = MVCxTreeListColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.Width = Unit.Pixel(30);
+
+        column.SetDataCellTemplateContent(c =>
+        {
+            var editInvoceUrl = DataBinder.Eval(c.DataItem, "EditInvoiceUrl");
+
+            ViewContext.Writer.Write($"<a href='{editInvoceUrl}'><i class='fa fa-pencil'></i></a>");
+        });
+
+        column.SetEditCellTemplateContent(" ");
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.Width = Unit.Pixel(30);
+
+        column.SetDataCellTemplateContent(c =>
+        {
+            var createInvoceUrl = DataBinder.Eval(c.DataItem, "CreateInvoiceUrl");
+            if (createInvoceUrl != null)
+            {
+                ViewContext.Writer.Write($"<a href='{createInvoceUrl}'><i class='fa fa-plus'></i></a>");
+
+            }
+        });
+
+        column.SetEditCellTemplateContent(" ");
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CompanyName";
+        column.Caption = "კომპანია";
+        column.ColumnType = MVCxTreeListColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "SenderAddress";
+        column.Caption = "მისამართი";
+        column.ColumnType = MVCxTreeListColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ReceiveDate";
+        column.Caption = "მიღ. თარიღი";
+        column.ColumnType = MVCxTreeListColumnType.DateEdit;
+        column.Width = Unit.Pixel(150);
+        var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+        if (dateEditProperties != null)
+        {
+            dateEditProperties.DisplayFormatString = Model.CustomDateFormat;
+            dateEditProperties.EditFormatString = Model.CustomDateFormat;
+
+        }
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "MessageModeID";
+        column.Caption = "რეჟიმი";
+        column.ColumnType = MVCxTreeListColumnType.ComboBox;
+        column.Width = Unit.Pixel(100);
+
+        var comboboxProperties = column.PropertiesEdit as ComboBoxProperties;
+        if (comboboxProperties != null)
+        {
+            comboboxProperties.DataSource = Model.MessageModes;
+            comboboxProperties.ValueField = "Key";
+            comboboxProperties.TextField = "Value";
+            comboboxProperties.ValueType = typeof(int?);
+            comboboxProperties.ValidationSettings.RequiredField.IsRequired = true;
+        }
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Quantity";
+        column.Caption = "რაოდენობა";
+        column.ColumnType = MVCxTreeListColumnType.SpinEdit;
+        column.Width = Unit.Pixel(100);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Weigth";
+        column.Caption = "წონა";
+        column.ColumnType = MVCxTreeListColumnType.SpinEdit;
+        column.Width = Unit.Pixel(100);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "UnitPrice";
+        column.Caption = "ერთ. ფასი";
+        column.ColumnType = MVCxTreeListColumnType.SpinEdit;
+        column.Width = Unit.Pixel(100);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Direction";
+        column.Caption = "მიმართულება";
+        column.ColumnType = MVCxTreeListColumnType.TextBox;
+        column.Width = Unit.Pixel(150);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ReceiverFirstnameLastname";
+        column.Caption = "მიმღები";
+        column.ColumnType = MVCxTreeListColumnType.TextBox;
+        column.Width = Unit.Pixel(150);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ReceiverTelephoneNumber";
+        column.Caption = "მიმღ. ტელ.";
+        column.ColumnType = MVCxTreeListColumnType.TextBox;
+        column.Width = Unit.Pixel(150);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ReceiverAddress";
+        column.Caption = "მიმღ. მისამართი";
+        column.ColumnType = MVCxTreeListColumnType.TextBox;
+        column.Width = Unit.Pixel(150);
+
+    });
+
+    settings.Columns.Add(column => { column.SetEditCellTemplateContent(" "); });
+
+    settings.CellEditorInitialize = (s, e) =>
+    {
+        var editor = (ASPxEdit)e.Editor;
+        editor.ValidationSettings.Display = Display.Dynamic;
+    };
+
+    settings.ClientSideEvents.BeginCallback = "function(s,e){ OnBeginCallback(s, e); }";
+}).Bind(Model.TreeItems).GetHtml()

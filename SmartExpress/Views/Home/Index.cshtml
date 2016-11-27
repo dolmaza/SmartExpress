@@ -1,9 +1,13 @@
-﻿
+﻿@model HomeViewModel
 @{
     ViewBag.Title = "Smart Express";
 }
 
-<a name="about"></a>
+@section HeaderSection {
+    
+    <link href="~/Content/plugins/semantic-ui/components/button.min.css" rel="stylesheet" />
+}
+
 <div class="intro-header">
     <div class="container">
         <div class="row">
@@ -14,7 +18,7 @@
                     <hr class="intro-divider">
                     <ul class="list-inline intro-social-buttons">
                         <li>
-                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-car fa-fw"></i> <span class="network-name"> კურიერის გამოძახება</span></a>
+                            <a href="#courier-call" class="btn btn-default btn-lg"><i class="fa fa-car fa-fw"></i> <span class="network-name"> კურიერის გამოძახება</span></a>
                         </li>
                         <li>
                             <a href="#" class="btn btn-default btn-lg"><i class="fa fa-money fa-fw"></i> <span class="network-name"> ტარიფები</span></a>
@@ -25,3 +29,42 @@
         </div>
     </div>
 </div>
+
+<div class="content-section-a" id="courier-call">
+    <div class="container" style="padding-top: 30px;">
+        <div class="row courier-call-btns">
+            <div class="col-md-12">
+                <div class="ui buttons">
+                    <button id="juridical-btn" class="ui big button">იურიდიული</button>
+                    <div class="or" data-text="ან"></div>
+                    <button id="physical-btn" class="ui big positive button">ფიზიკური</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        კურიერის გამოძახება - <span id="form-title">იურიდიული პირისთვის</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="juridical-form">
+                            @Html.Partial("_CourierCallJuridicalPartial", Model.JuridicalPerson)                            
+                        </div>
+                        <div class="physical-form">
+                            @Html.Partial("_CourierCallPhysicalPartial", Model.PhysicalPerson)
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <a href="#" class="btn btn-success">გამოძახება</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section FooterSection {
+    <script src="~/Content/scripts/Home/Index.js"></script>
+    
+}

@@ -88,6 +88,24 @@ namespace Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MMM dd yyyy.
+        /// </summary>
+        public static string FormatDate {
+            get {
+                return ResourceManager.GetString("FormatDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HH:mm.
+        /// </summary>
+        public static string FormatTime {
+            get {
+                return ResourceManager.GetString("FormatTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ოპერაცია წარმატებით დასრულდა.
         /// </summary>
         public static string Success {

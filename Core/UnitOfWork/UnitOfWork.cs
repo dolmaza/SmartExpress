@@ -9,6 +9,8 @@ namespace Core.UnitOfWork
         IDictionaryRepository DictionaryRepository { get; }
         IUserRepository UserRepository { get; }
         IInvoiceRepository InvoiceRepository { get; }
+        ICourierCallRepository CourierCallRepository { get; }
+
         int Complate();
 
     }
@@ -20,6 +22,7 @@ namespace Core.UnitOfWork
         public IDictionaryRepository DictionaryRepository { get; private set; }
         public IUserRepository UserRepository { get; private set; }
         public IInvoiceRepository InvoiceRepository { get; private set; }
+        public ICourierCallRepository CourierCallRepository { get; private set; }
 
         public UnitOfWork(DbCoreDataContext context)
         {
@@ -27,7 +30,7 @@ namespace Core.UnitOfWork
             DictionaryRepository = new DictionaryRepository(_context);
             UserRepository = new UserRepository(_context);
             InvoiceRepository = new InvoiceRepository(_context);
-
+            CourierCallRepository = new CourierCallRepository(_context);
         }
 
         public void Dispose()

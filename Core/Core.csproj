@@ -51,9 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\CourierCall.cs" />
     <Compile Include="Core\Dictionary.cs" />
     <Compile Include="Core\Invoice.cs" />
     <Compile Include="Core\User.cs" />
+    <Compile Include="DB\Configuration\CourierCallConfiguration.cs" />
     <Compile Include="DB\Configuration\DictionaryConfiguration.cs" />
     <Compile Include="DB\Configuration\InvoiceConfiguration.cs" />
     <Compile Include="DB\Configuration\UserConfiguration.cs" />
@@ -114,6 +116,18 @@
     <Compile Include="Migrations\201608141201463_ChangedInvoiceNumberToNotUniqInInvoicesTable.Designer.cs">
       <DependentUpon>201608141201463_ChangedInvoiceNumberToNotUniqInInvoicesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609111124051_AddCourierCallTable.cs" />
+    <Compile Include="Migrations\201609111124051_AddCourierCallTable.Designer.cs">
+      <DependentUpon>201609111124051_AddCourierCallTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609111125227_AddCourierCallTable1.cs" />
+    <Compile Include="Migrations\201609111125227_AddCourierCallTable1.Designer.cs">
+      <DependentUpon>201609111125227_AddCourierCallTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609111825441_AddCourierCallConfiguration.cs" />
+    <Compile Include="Migrations\201609111825441_AddCourierCallConfiguration.Designer.cs">
+      <DependentUpon>201609111825441_AddCourierCallConfiguration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -121,6 +135,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\CourierCallRepository.cs" />
     <Compile Include="Repositories\DictionaryRepository.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
@@ -178,6 +193,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608141201463_ChangedInvoiceNumberToNotUniqInInvoicesTable.resx">
       <DependentUpon>201608141201463_ChangedInvoiceNumberToNotUniqInInvoicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609111124051_AddCourierCallTable.resx">
+      <DependentUpon>201609111124051_AddCourierCallTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609111125227_AddCourierCallTable1.resx">
+      <DependentUpon>201609111125227_AddCourierCallTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609111825441_AddCourierCallConfiguration.resx">
+      <DependentUpon>201609111825441_AddCourierCallConfiguration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

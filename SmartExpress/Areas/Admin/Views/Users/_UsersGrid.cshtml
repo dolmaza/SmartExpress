@@ -1,0 +1,128 @@
+﻿@using DevExpress.Web
+@model UsersGridViewModel
+@Html.DevExpress().GridView(settings =>
+{
+    settings = Model.GenerateGridViewDefaultSettings(settings);
+    settings.Name = "UsersGrid";
+    settings.KeyFieldName = "ID";
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.CommandColumn.VisibleIndex = 9;
+
+
+    settings.CallbackRouteValues = Model.ListUrl;
+    settings.SettingsEditing.AddNewRowRouteValues = Model.AddNewUrl;
+    settings.SettingsEditing.UpdateRowRouteValues = Model.UpdateUrl;
+    settings.SettingsEditing.DeleteRowRouteValues = Model.DeleteUrl;
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ContractNumber";
+        column.Caption = "ხელშ. №";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+        var textboxProperties = column.PropertiesEdit as TextBoxProperties;
+        if (textboxProperties != null)
+        {
+            textboxProperties.ValidationSettings.RequiredField.IsRequired = true;
+            textboxProperties.MaskSettings.Mask = "99-999";
+            textboxProperties.MaskSettings.IncludeLiterals = MaskIncludeLiteralsMode.All;
+        }
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CompanyName";
+        column.Caption = "კომპანია";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Password";
+        column.Caption = "პაროლი";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("*****");
+        });
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Firstname";
+        column.Caption = "სახელი";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Lastname";
+        column.Caption = "გვარი";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Address";
+        column.Caption = "მისამართი";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TelephoneNumber";
+        column.Caption = "ტელეფონი";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+        column.Width = Unit.Pixel(150);
+        var textboxProperties = column.PropertiesEdit as TextBoxProperties;
+        if (textboxProperties != null)
+        {
+            textboxProperties.MaskSettings.Mask = "(599)-99-99-99";
+            textboxProperties.MaskSettings.IncludeLiterals = MaskIncludeLiteralsMode.All;
+        }
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "IDNumber";
+        column.Caption = "საიდ. №";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+        column.Width = Unit.Pixel(100);
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "RoleID";
+        column.Caption = "როლი";
+        column.ColumnType = MVCxGridViewColumnType.ComboBox;
+        column.Width = Unit.Pixel(100);
+        var comboboxProperties = column.PropertiesEdit as ComboBoxProperties;
+        if (comboboxProperties != null)
+        {
+            comboboxProperties.DataSource = Model.Roles;
+            comboboxProperties.ValueField = "Key";
+            comboboxProperties.TextField = "Value";
+            comboboxProperties.ValueType = typeof(int?);
+            comboboxProperties.ValidationSettings.RequiredField.IsRequired = true;
+        }
+
+    });
+
+    settings.Columns.Add(column => { column.SetEditItemTemplateContent(" "); });
+
+    settings.CellEditorInitialize = (s, e) =>
+    {
+        ASPxEdit editor = (ASPxEdit)e.Editor;
+        editor.ValidationSettings.Display = Display.Dynamic;
+    };
+
+}).Bind(Model.GridItems).GetHtml()

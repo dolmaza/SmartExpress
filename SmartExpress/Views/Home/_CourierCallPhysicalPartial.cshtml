@@ -1,0 +1,89 @@
+﻿@model CourierCallPhysicalViewModel
+    
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>პირადი ნომერი</label>
+            <input type="text" class="form-control" value="" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>ელექტრონული მისამართი</label>
+            <input type="text" class="form-control" value="" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>ტელეფონი</label>
+            <input type="text" class="form-control" value="" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>სახელი</label>
+            <input type="text" class="form-control" value="" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>გვარი</label>
+            <input type="text" class="form-control" value="" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>რაოდენობა</label>
+            <input type="text" class="form-control" value="" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>გამგზავნის მისამართი</label>
+            <input type="text" class="form-control" value="" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>მიმღების მისამართი</label>
+            <input type="text" class="form-control" value="" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>გზავნილის ტიპი</label>
+            <select class="form-control">
+                <option value=""></option>
+                @foreach (var messageTypes in Model.MessageTypes)
+                {
+                    <option value="@messageTypes.Key">@messageTypes.Value</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>საერთო წონა</label>
+            <input type="text" class="form-control" value="" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>მომსახურების ტიპი</label>
+            <select class="form-control">
+                <option value=""></option>
+                @foreach (var serviceType in Model.ServiceTypes)
+                {
+                    <option value="@serviceType.Key">@serviceType.Value</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+

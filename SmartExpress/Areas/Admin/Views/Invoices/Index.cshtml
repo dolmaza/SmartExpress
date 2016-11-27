@@ -1,12 +1,13 @@
-﻿@model InvoiceViewModel
+﻿@model InvoicesViewModel
 @{
     ViewBag.Title = "ზედნადებების ისტორია";
 }
 
 @section HeaderSection {
 
-    <link href="~/Content/plugins/jqxTreeGrid/jqx.base.css" rel="stylesheet" />
-    <link href="~/Content/plugins/fancybox/jquery.fancybox.css" rel="stylesheet" />
+    @Html.DevExpress().GetStyleSheets(new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList })
+    @Html.DevExpress().GetScripts(new Script { ExtensionSuite = ExtensionSuite.TreeList })
+
     <link href="~/Content/plugins/loader/loader.css" rel="stylesheet" />
     <link href="~/Content/plugins/jquery-ui-1.12.0/jquery-ui.min.css" rel="stylesheet" />
 }
@@ -60,43 +61,16 @@
 
 
 <div class="row">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            ზედნადებები
-        </div>
-        <div class="panel-body">
-            <div id="treeGrid">
-
-            </div>
-        </div>
-    </div>
-
+    @Html.Partial("_InvoicesTree", Model.TreeViewModel)
 </div>
 
 @section FooterSection {
 
-    <script src="~/Content/plugins/jqxTreeGrid/jqxcore.js"></script>
-    <script src="~/Content/plugins/jqxTreeGrid/jqxdata.js"></script>
-    <script src="~/Content/plugins/jqxTreeGrid/jqxbuttons.js"></script>
-    <script src="~/Content/plugins/jqxTreeGrid/jqxscrollbar.js"></script>
-    <script src="~/Content/plugins/jqxTreeGrid/jqxlistbox.js"></script>
-    <script src="~/Content/plugins/jqxTreeGrid/jqxdropdownlist.js"></script>
-    <script src="~/Content/plugins/jqxTreeGrid/jqxdatatable.js"></script>
-    <script src="~/Content/plugins/jqxTreeGrid/jqxtooltip.js"></script>
-    <script src="~/Content/plugins/jqxTreeGrid/jqxinput.js"></script>
-    <script src="~/Content/plugins/jqxTreeGrid/jqxtreegrid.js"></script>
-    <script src="~/Content/plugins/successErrorMessage.js"></script>
-    <script src="~/Content/plugins/bootbox/bootbox.min.js"></script>
-    <script src="~/Content/plugins/fancybox/jquery.fancybox.js"></script>
-    <script src="~/Content/plugins/fancybox/FancyMethods.js"></script>
     <script src="~/Content/plugins/loader/loader.js"></script>
     <script src="~/Content/plugins/jquery-ui-1.12.0/jquery-ui.min.js"></script>
     <script>
         var InvoicesByReceiveDateUrl = "@Model.InvoicesByReceiveDateUrl";
-        var InvoicesJson = @Html.Raw(Model.InvoicesJson);
-        var confirmDeleteText = "@Model.ConfirmDeleteText";
         var customDateFormatJs = "@Model.CustomDateFormatJs";
-        var customDateFormat = "@Model.CustomDateFormat";
         var abort = "@Model.Abort";
     </script>
     <script src="~/Areas/Admin/Content/scripts/Invoices/Index.js"></script>

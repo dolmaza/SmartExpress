@@ -43,10 +43,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
-      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxTreeList.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.Mvc5.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -116,7 +123,6 @@
     <Content Include="Areas\Admin\Content\scripts\Dictionaries\Index.js" />
     <Content Include="Areas\Admin\Content\scripts\Invoices\CreateEditInvoice.js" />
     <Content Include="Areas\Admin\Content\scripts\Invoices\Index.js" />
-    <Content Include="Areas\Admin\Content\scripts\Users\CreateEditUser.js" />
     <Content Include="Areas\Admin\Content\scripts\Users\Index.js" />
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\landing-page.css" />
@@ -207,9 +213,10 @@
     <Content Include="Content\plugins\metisMenu\metisMenu.min.js" />
     <Content Include="Content\plugins\sb-admin\sb-admin-2.css" />
     <Content Include="Content\plugins\sb-admin\sb-admin-2.js" />
+    <Content Include="Content\plugins\semantic-ui\components\button.min.css" />
     <Content Include="Content\plugins\successErrorMessage.js" />
+    <Content Include="Content\scripts\Home\Index.js" />
     <Content Include="Global.asax" />
-    <Content Include="LICENSE.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -219,9 +226,9 @@
     <Compile Include="Areas\Admin\Controllers\DictionariesController.cs" />
     <Compile Include="Areas\Admin\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Areas\Admin\Models\InvoiceViewModel.cs" />
-    <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
-    <Compile Include="Areas\Admin\Models\DictionaryViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\InvoicesViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\UsersViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\DictionariesViewModel.cs" />
     <Compile Include="Areas\Admin\Models\LayoutViewModel.cs" />
     <Compile Include="Areas\Admin\Reusable\BaseClasses.cs" />
     <Compile Include="Models\UserInvoicesViewModel.cs" />
@@ -268,16 +275,19 @@
     <Content Include="Content\plugins\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\plugins\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\plugins\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Areas\Admin\Views\Users\CreateEditUser.cshtml" />
     <Content Include="Areas\Admin\Views\Invoices\CreateEditInvoice.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\NotFound.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_SuccessErrorMessagePartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_PopupLayout.cshtml" />
-    <Content Include="Areas\Admin\Views\Dictionaries\CreateEditDictionary.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UserInvoices.cshtml" />
     <Content Include="Views\Shared\_PopupLayout.cshtml" />
     <Content Include="Views\Account\UserInvoiceDetails.cshtml" />
+    <Content Include="Views\Home\_CourierCallJuridicalPartial.cshtml" />
+    <Content Include="Views\Home\_CourierCallPhysicalPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\_UsersGrid.cshtml" />
+    <Content Include="Areas\Admin\Views\Dictionaries\_DictionariesTree.cshtml" />
+    <Content Include="Areas\Admin\Views\Invoices\_InvoicesTree.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -287,7 +297,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\scripts\" />
     <Folder Include="Reusable\Helpers\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Base\" />

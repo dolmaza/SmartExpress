@@ -1,12 +1,12 @@
-﻿@model UserViewModel
+﻿@model UsersViewModel
 @{
     ViewBag.Title = "მომხმარებლები";
 }
 
 @section HeaderSection {
+    @Html.DevExpress().GetStyleSheets(new StyleSheet { ExtensionSuite = ExtensionSuite.GridView })
+    @Html.DevExpress().GetScripts(new Script { ExtensionSuite = ExtensionSuite.GridView })
 
-    <link href="~/Content/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
-    @*<link href="~/Content/plugins/dataTables/dataTables.responsive.css" rel="stylesheet" />*@
 }
 
 @section Breadcrumb {
@@ -22,62 +22,17 @@
 <div class="row">
     <div class="col-md-12">
         <div class="actions-bar">
-            <a href="@Model.UserCreateUrl" class="btn btn-default"><i class="fa fa-plus"></i> დამატება</a>
+            <a href="#" class="btn btn-default" id="add-new"><i class="fa fa-plus"></i> დამატება</a>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                მომხმარებელთა სია
-            </div>
-            <div class="panel-body">
-                <div class="dataTable_wrapper">
-                    <table class="table table-striped table-bordered table-hover" id="users-grid">
-                        <thead>
-                            <tr>
-                                <th>ხელშ. №</th>
-                                <th>სახელი</th>
-                                <th>გვარი</th>
-                                <th>კომპანია</th>
-                                <th>ტელეფონი</th>
-                                <th>მისამართი</th>
-                                <th>საიდ. კოდი</th>
-                                <th>როლი</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var user in Model.Users)
-                            {
-                                <tr>
-                                    <td>@user.ContractNumber</td>
-                                    <td>@user.Firstname</td>
-                                    <td>@user.Lastname</td>
-                                    <td>@user.CompanyName</td>
-                                    <td>@user.TelephoneNumber</td>
-                                    <td>@user.Address</td>
-                                    <td>@user.IDNumber</td>
-                                    <td>@user.RoleCaption</td>
-                                    <td><a href="@user.UserEditUrl"><i class="fa fa-pencil"></i> </a><a href="@user.UserDeleteUrl" class="user-delete"> <i class="fa fa-trash-o"></i></a></td>
-                                </tr>
-                            }
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("_UsersGrid", Model.GridViewModel)
     </div>
 </div>
 
 @section FooterSection {
-    <script>
-        var ConfirmDeleteText = "@Model.ConfirmDeleteText";
-    </script>
-    <script src="~/Content/plugins/dataTables/jquery.dataTables.min.js"></script>
-    <script src="~/Content/plugins/dataTables/dataTables.bootstrap.min.js"></script>  
     <script src="~/Areas/Admin/Content/scripts/Users/Index.js"></script>
 }

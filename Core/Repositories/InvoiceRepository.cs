@@ -27,7 +27,6 @@ namespace Core.Repositories
                         || (dateFrom == null && dateTo != null && i.ReceiveDate <= dateTo)
                         || (dateFrom != null && dateTo != null && i.ReceiveDate >= dateFrom && i.ReceiveDate <= dateTo))
                 .OrderByDescending(i => i.ReceiveDate)
-                .Include(i => i.MessageMode)
                 .ToList();
         }
 

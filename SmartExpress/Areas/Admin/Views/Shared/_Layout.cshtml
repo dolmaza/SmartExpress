@@ -1,5 +1,6 @@
 ﻿@{
     var layoutViewModel = ViewBag.LayoutViewModel as LayoutViewModel;
+    layoutViewModel = layoutViewModel ?? new LayoutViewModel();
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +21,8 @@
     <link href="~/Content/plugins/font-awsome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <link href="~/Areas/Admin/Content/css/style.css" rel="stylesheet" />
+
+    <script src="~/Content/plugins/jquery/jquery-2.2.1.min.js"></script>
 
     @RenderSection("HeaderSection", false)
 
@@ -71,7 +74,7 @@
                 </div>
             </div>
         </nav>
-        <div id="page-wrapper">    
+        <div id="page-wrapper">
             @RenderSection("Breadcrumb", false)
             <div class="row">
                 <div class="col-md-12">
@@ -83,10 +86,9 @@
                 </div>
             </div>
 
-            @RenderBody()   
+            @RenderBody()
         </div>
     </div>
-    <script src="~/Content/plugins/jquery/jquery-2.2.1.min.js"></script>
     <script src="~/Content/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="~/Content/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="~/Content/plugins/sb-admin/sb-admin-2.js"></script>

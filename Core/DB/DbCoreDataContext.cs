@@ -16,6 +16,7 @@ namespace Core.DB
             modelBuilder.Configurations.Add(new DictionaryConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new InvoiceConfiguration());
+            modelBuilder.Configurations.Add(new CourierCallConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -23,6 +24,7 @@ namespace Core.DB
         public DbSet<Dictionary> Dictionaries { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<CourierCall> CourierCalls { get; set; }
 
     }
 }

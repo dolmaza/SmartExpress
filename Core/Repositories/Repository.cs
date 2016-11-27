@@ -52,11 +52,8 @@ namespace Core.Repositories
         {
             try
             {
-                using (Context)
-                {
-                    Context.Set<TEntity>().Add(entity);
-                    Context.SaveChanges();
-                }
+                Context.Set<TEntity>().Add(entity);
+                Context.SaveChanges();
             }
             catch (Exception)
             {
@@ -68,11 +65,8 @@ namespace Core.Repositories
         {
             try
             {
-                using (Context)
-                {
-                    Context.Set<TEntity>().AddRange(entities);
-                    Context.SaveChanges();
-                }
+                Context.Set<TEntity>().AddRange(entities);
+                Context.SaveChanges();
             }
             catch (Exception)
             {
@@ -83,13 +77,12 @@ namespace Core.Repositories
 
         public void Update(TEntity entity)
         {
+
             try
             {
-                using (Context)
-                {
-                    Context.Entry(entity).State = EntityState.Modified;
-                    Context.SaveChanges();
-                }
+                Context.Entry(entity).State = EntityState.Modified;
+                Context.SaveChanges();
+
             }
             catch (Exception)
             {
@@ -102,11 +95,8 @@ namespace Core.Repositories
         {
             try
             {
-                using (Context)
-                {
-                    Context.Set<TEntity>().Remove(entity);
-                    Context.SaveChanges();
-                }
+                Context.Set<TEntity>().Remove(entity);
+                Context.SaveChanges();
             }
             catch (Exception)
             {
@@ -118,11 +108,8 @@ namespace Core.Repositories
         {
             try
             {
-                using (Context)
-                {
-                    Context.Set<TEntity>().RemoveRange(entities);
-                    Context.SaveChanges();
-                }
+                Context.Set<TEntity>().RemoveRange(entities);
+                Context.SaveChanges();
             }
             catch (Exception)
             {

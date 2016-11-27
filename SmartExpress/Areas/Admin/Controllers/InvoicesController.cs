@@ -9,7 +9,6 @@ using SmartExpress.Admin.Reusable.Helpers;
 using SmartExpress.Reusable.Extentions;
 using SmartExpress.Reusable.Utilities;
 using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,23 +16,35 @@ using System.Web.UI.WebControls;
 
 namespace SmartExpress.Areas.Admin.Controllers
 {
-    [RouteArea("Admin")]
     public class InvoicesController : BaseController
     {
         [Route("invoices", Name = "Invoices")]
         public ActionResult Index()
         {
-            var model = new InvoiceViewModel
+            var model = new InvoicesViewModel
             {
                 InvoiceCreateUrl = Url.RouteUrl("InvoicesCreate"),
                 InvoicesExportToExcelUrl = Url.RouteUrl("InvoicesExportToExcel"),
                 InvoicesByReceiveDateUrl = Url.RouteUrl("InvoicesByReceiveDate"),
 
-                InvoicesJson = UnitOfWork.InvoiceRepository.GetAll()
-                .OrderByDescending(i => i.ReceiveDate)
-                .Include(i => i.MessageMode)
-                .ToList()
-                .Select(i => new InvoiceObject
+                TreeViewModel = GetInvociesTreeViewModel()
+            };
+            return View(model);
+        }
+
+        [Route("invoices/list", Name = "InvoicesList")]
+        public ActionResult InvoicesList(DateTime? from, DateTime? to)
+        {
+            return PartialView("_InvoicesTree", GetInvociesTreeViewModel(from, to));
+        }
+
+        InvoicesTreeViewModel GetInvociesTreeViewModel(DateTime? dateFrom = null, DateTime? dateTo = null)
+        {
+            return new InvoicesTreeViewModel
+            {
+                ListUrl = Url.RouteUrl("InvoicesList"),
+                TreeItems = UnitOfWork.InvoiceRepository.GetInvociesByReceiveDate(dateFrom, dateTo)
+                .Select(i => new InvoiceTreeItem
                 {
                     ID = i.ID,
                     ParentID = i.ParentID,
@@ -41,17 +52,25 @@ namespace SmartExpress.Areas.Admin.Controllers
                     CompanyName = i.CompanyName,
                     SenderAddress = i.SenderAddress,
                     ReceiveDate = i.ReceiveDate?.ToString(Resources.CustomDateFormat),
-                    MessageMode = i.MessageMode.Caption,
+                    MessageModeID = i.MessageModeID,
                     Quantity = $"{i.Quantity:0.}",
                     Weigth = $"{i.Weigth:0.00}",
                     UnitPrice = $"{i.UnitPrice:0.00}",
                     Direction = i.Direction,
                     ReceiverFirstnameLastname = $"{i.ReceiverFirstname} {i.ReceiverLastname}",
                     ReceiverTelephoneNumber = i.ReceiverTelephoneNumber,
-                    ReceiverAddress = i.ReceiverAddress
-                }).ToJson()
+                    ReceiverAddress = i.ReceiverAddress,
+
+                    CreateInvoiceUrl = i.ParentID == null ? Url.RouteUrl("InvoicesCreate", new { parentID = i.ID }) : null,
+                    EditInvoiceUrl = Url.RouteUrl("InvoicesEdit", new { ID = i.ID })
+                }).ToList(),
+
+                MessageModes = UnitOfWork.DictionaryRepository.GetAllByCodeAndLevel(1, 3, true).Select(m => new SimpleKeyValueObject<int?, string>
+                {
+                    Key = m.ID,
+                    Value = m.Caption
+                }).ToList()
             };
-            return View(model);
         }
 
         [HttpPost]
@@ -76,7 +95,7 @@ namespace SmartExpress.Areas.Admin.Controllers
                     ReceiverFirstnameLastname = $"{i.ReceiverFirstname} {i.ReceiverLastname}",
                     ReceiverTelephoneNumber = i.ReceiverTelephoneNumber,
                     ReceiverAddress = i.ReceiverAddress
-                }).ToJson();
+                });
 
             ajaxResponse.IsSuccess = true;
             ajaxResponse.Data = new

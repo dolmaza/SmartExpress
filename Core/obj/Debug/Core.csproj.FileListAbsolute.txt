@@ -50,3 +50,6 @@ D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.csproj.GenerateResour
 D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.dll
 D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.pdb
 D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
+D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.Migrations.AddCourierCallTable.resources
+D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.Migrations.AddCourierCallTable1.resources
+D:\Projects\MVC Projectes\SmartExpress\Core\obj\Debug\Core.Migrations.AddCourierCallConfiguration.resources

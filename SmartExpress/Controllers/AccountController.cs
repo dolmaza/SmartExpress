@@ -29,7 +29,7 @@ namespace SmartExpress.Controllers
         {
             var user = UnitOfWork.UserRepository.GetUserByContractNumber(model.ContractNumber);
 
-            if (user.Password.VerifyPassword(model.Password))
+            if (user != null && user.Password == model.Password?.ToMD5())
             {
                 Session[AppSettings.AuthenticatedUserKey] = user;
                 if (user.Role.IntCode == 1)

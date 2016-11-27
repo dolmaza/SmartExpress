@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
@@ -60,14 +62,28 @@ namespace SmartExpress.Reusable.Extentions
             return date;
         }
 
-        public static string HashPassword(this string str)
+        public static string ToMD5(this string input)
         {
-            return str == null ? null : BCrypt.Net.BCrypt.HashPassword(str);
+            // step 1, calculate MD5 hash from input
+
+            var md5 = MD5.Create();
+
+            var inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+
+            var hash = md5.ComputeHash(inputBytes);
+
+            // step 2, convert byte array to hex string
+
+            var sb = new StringBuilder();
+
+            foreach (var h in hash)
+            {
+                sb.Append(h.ToString("X2"));
+            }
+
+            return sb.ToString();
+
         }
 
-        public static bool VerifyPassword(this string hash, string password)
-        {
-            return BCrypt.Net.BCrypt.Verify(password, hash);
-        }
     }
 }

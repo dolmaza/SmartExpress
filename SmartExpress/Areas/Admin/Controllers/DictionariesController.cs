@@ -1,25 +1,107 @@
 ﻿using Core;
 using Core.Properties;
-using Core.Utilities;
-using Core.Validation;
+using DevExpress.Web.Mvc;
 using SmartExpress.Admin.Models;
 using SmartExpress.Admin.Reusable;
-using SmartExpress.Reusable.Extentions;
 using System;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace SmartExpress.Areas.Admin.Controllers
 {
-    [RouteArea("Admin")]
     public class DictionariesController : BaseController
     {
         [Route("dictionaries", Name = "Dictionaries")]
         public ActionResult Index()
         {
-            var model = new DictionaryViewModel
+            var model = new DictionariesViewModel
             {
-                DictionariesJson = UnitOfWork.DictionaryRepository.GetAll().ToList().Select(d => new DictionaryObject
+                TreeViewModel = GetDictionariesTreeViewModel()
+            };
+
+            return View(model);
+        }
+
+        [Route("dictionaries/list", Name = "DictionariesList")]
+        public ActionResult DictionariesList()
+        {
+            return PartialView("_DictionariesTree", GetDictionariesTreeViewModel());
+        }
+
+        [HttpPost]
+        [Route("dictionaries/create", Name = "DictionariesCreate")]
+        public ActionResult CreateDictionary([ModelBinder(typeof(DevExpressEditorsBinder))] DictionaryTreeItem model)
+        {
+            UnitOfWork.DictionaryRepository.Add(new Dictionary
+            {
+                ParentID = model.ParentID,
+                Caption = model.Caption,
+                IntCode = model.IntCode,
+                StringCode = model.StringCode,
+                DictionaryCode = model.DictionaryCode,
+                SortVal = model.SortVal,
+                IsVisible = model.IsVisible,
+                CreateTime = DateTime.Now
+            });
+
+            if (UnitOfWork.DictionaryRepository.IsError)
+            {
+                throw new Exception(Resources.Abort);
+            }
+
+            return PartialView("_DictionariesTree", GetDictionariesTreeViewModel());
+        }
+
+        [HttpPost]
+        [Route("dictionaries/update", Name = "DictionariesUpdate")]
+        public ActionResult EditDictionary([ModelBinder(typeof(DevExpressEditorsBinder))] DictionaryTreeItem model)
+        {
+
+            UnitOfWork.DictionaryRepository.Update(new Dictionary
+            {
+                ID = model.ID,
+                ParentID = model.ParentID,
+                Caption = model.Caption,
+                DictionaryCode = model.DictionaryCode,
+                IntCode = model.IntCode,
+                StringCode = model.StringCode,
+                IsVisible = model.IsVisible,
+                SortVal = model.SortVal
+
+            });
+
+            if (UnitOfWork.DictionaryRepository.IsError)
+            {
+                throw new Exception(Resources.Abort);
+            }
+
+
+            return PartialView("_DictionariesTree", GetDictionariesTreeViewModel());
+        }
+
+        [Route("dictionaries/delete", Name = "DictionariesDelete")]
+        public ActionResult DeleteDictionary(int? ID)
+        {
+            var dictionary = UnitOfWork.DictionaryRepository.Get(ID);
+            UnitOfWork.DictionaryRepository.Remove(dictionary);
+
+            if (UnitOfWork.DictionaryRepository.IsError)
+            {
+                throw new Exception(Resources.Abort);
+            }
+
+            return PartialView("_DictionariesTree", GetDictionariesTreeViewModel());
+        }
+
+        DictionariesTreeViewModel GetDictionariesTreeViewModel()
+        {
+            return new DictionariesTreeViewModel
+            {
+                ListUrl = Url.RouteUrl("DictionariesList"),
+                AddNewUrl = Url.RouteUrl("DictionariesCreate"),
+                UpdateUrl = Url.RouteUrl("DictionariesUpdate"),
+                DeleteUrl = Url.RouteUrl("DictionariesDelete"),
+                TreeItems = UnitOfWork.DictionaryRepository.GetAll().Select(d => new DictionaryTreeItem
                 {
                     ID = d.ID,
                     Caption = d.Caption,
@@ -29,165 +111,9 @@ namespace SmartExpress.Areas.Admin.Controllers
                     ParentID = d.ParentID,
                     IsVisible = d.IsVisible.Value,
                     SortVal = d.SortVal
-                }).ToJson(),
-                DictionaryCreateUrl = Url.RouteUrl("DictionariesCreate")
-
+                }).ToList()
             };
-
-            return View(model);
         }
 
-        [Route("dictionaries/create", Name = "DictionariesCreate")]
-        [Route("dictionaries/{parentID}/create")]
-        public ActionResult CreateDictionary(int? parentID)
-        {
-            var model = new CreateEditDictionaryViewModel
-            {
-                SaveUrl = Url.RouteUrl("DictionariesCreate"),
-                Title = "ზოგადი ცნობარის დამატება",
-                DictionaryObject = new DictionaryObject
-                {
-                    ParentID = parentID ?? 0
-                }
-            };
-            return View("CreateEditDictionary", model);
-        }
-
-        [HttpPost]
-        [Route("dictionaries/{ParentID}/create")]
-        [Route("dictionaries/create")]
-        public ActionResult CreateDictionary(DictionaryObject model)
-        {
-            var ajaxResponse = new AjaxResponse();
-            var errors = Validation.ValdiateCreateEditDictionaryForm(model.Caption, model.DictionaryCode);
-
-            if (errors.Count == 0)
-            {
-                UnitOfWork.DictionaryRepository.Add(new Dictionary
-                {
-                    ParentID = model.ParentID,
-                    Caption = model.Caption,
-                    IntCode = model.IntCode,
-                    StringCode = model.StringCode,
-                    DictionaryCode = model.DictionaryCode,
-                    SortVal = model.SortVal,
-                    IsVisible = model.IsVisible,
-                    CreateTime = DateTime.Now
-                });
-
-                if (UnitOfWork.DictionaryRepository.IsError)
-                {
-                    ajaxResponse.Data = new
-                    {
-                        Message = Resources.Abort
-                    };
-                }
-                else
-                {
-                    ajaxResponse.IsSuccess = true;
-                }
-            }
-            else
-            {
-                ajaxResponse.Data = new
-                {
-                    ErrorsJson = errors.ToJson()
-                };
-            }
-
-
-            return Json(ajaxResponse);
-        }
-
-        [Route("dictionaries/{ID}/edit", Name = "DictionariesEdit")]
-        public ActionResult EditDictionary(int? ID)
-        {
-            var dictionary = UnitOfWork.DictionaryRepository.Get(ID);
-            if (dictionary == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                var model = new CreateEditDictionaryViewModel
-                {
-                    SaveUrl = Url.RouteUrl("DictionariesEdit", new { ID = ID }),
-                    Title = "ზოგადი ცნობარის რედაქტირება",
-                    DictionaryObject = new DictionaryObject
-                    {
-                        ID = dictionary.ID,
-                        Caption = dictionary.Caption,
-                        DictionaryCode = dictionary.DictionaryCode,
-                        IntCode = dictionary.IntCode,
-                        StringCode = dictionary.StringCode,
-                        ParentID = dictionary.ParentID ?? 0,
-                        IsVisible = dictionary.IsVisible.Value,
-                        SortVal = dictionary.SortVal
-                    }
-                };
-
-                return View("CreateEditDictionary", model);
-            }
-        }
-
-        [HttpPost]
-        [Route("dictionaries/{ID}/edit")]
-        public ActionResult EditDictionary(DictionaryObject model)
-        {
-            var ajaxResponse = new AjaxResponse();
-            var errors = Validation.ValdiateCreateEditDictionaryForm(model.Caption, model.DictionaryCode);
-
-            if (errors.Count == 0)
-            {
-                UnitOfWork.DictionaryRepository.Update(new Dictionary
-                {
-                    ID = model.ID,
-                    ParentID = model.ParentID,
-                    Caption = model.Caption,
-                    DictionaryCode = model.DictionaryCode,
-                    IntCode = model.IntCode,
-                    StringCode = model.StringCode,
-                    IsVisible = model.IsVisible,
-                    SortVal = model.SortVal
-
-                });
-
-                if (UnitOfWork.DictionaryRepository.IsError)
-                {
-                    ajaxResponse.Data = new
-                    {
-                        Message = Resources.Abort
-                    };
-                }
-                else
-                {
-                    ajaxResponse.IsSuccess = true;
-                }
-
-            }
-            else
-            {
-                ajaxResponse.Data = new
-                {
-                    ErrorsJson = errors.ToJson()
-                };
-            }
-
-            return Json(ajaxResponse);
-        }
-
-        [Route("dictionaries/{ID}/delete", Name = "DictionariesDelete")]
-        public ActionResult DeleteDictionary(int? ID)
-        {
-            var dictionary = UnitOfWork.DictionaryRepository.Get(ID);
-            UnitOfWork.DictionaryRepository.Remove(dictionary);
-
-            if (UnitOfWork.DictionaryRepository.IsError)
-            {
-                InitErrorMessage(Resources.Abort);
-            }
-
-            return Redirect(Url.RouteUrl("Dictionaries"));
-        }
     }
 }
